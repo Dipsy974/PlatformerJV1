@@ -26,6 +26,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.attackDamages = 0; 
 
         this.hp = 1; 
+        this.protected = false;
         
 
         this.rayGraphics = this.scene.add.graphics();
@@ -46,29 +47,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     update(time,delta){
-        this.patrol(time,delta); 
+        
     }
 
-    patrol(time,delta){
-        // Pour éviter les erreurs : ne lance pas le raycasting si pas de body ou si ennemi dans les airs
-        if(!this.body || !this.body.onFloor()){
-            return; 
-        }
 
-        //Raycasting pour changer direction ennemi quand près d'un rebord 
-        const {ray, isHitting} = this.raycast(this.body, this.platformCollidersLayer , 30, 2, 1); 
-        this.rayGraphics.clear(); 
-        this.rayGraphics.strokeLineShape(ray); 
-
-        //Threshold de 100ms pour ne pas répéter l'action Turn plein de fois d'affilé
-        if(!isHitting && this.timeFromLastTurn + 1000 < time){
-            this.setFlipX(!this.flipX); 
-            this.setVelocityX(this.speed = -this.speed); 
-            this.timeFromLastTurn = time; 
-        }
-    }
-
-    getHit(){
+    getHit(projectile){
         this.hp -= 1; 
         this.playDamageTween(); 
         this.scene.time.delayedCall(500, () => {

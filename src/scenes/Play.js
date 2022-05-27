@@ -3,9 +3,12 @@ import Enemy from "/src/entities/Enemy.js";
 import Tornado from "/src/entities/Tornado.js";
 import TCloud from "../entities/ThunderCloud.js";
 import STCloud from "../entities/StaticThunderCloud.js";
+import Caster from "../entities/CasterEnemy.js";
+import ProtectedEnemy from "../entities/ProtectedEnemy.js";
 import MovingPlatform from "../entities/MovingPlatform.js";
 import Plant from "../entities/Plant.js";
 import FirePlace from "../entities/FirePlace.js";
+import WindParticle from "../entities/WindParticles.js";
 
 
 
@@ -20,9 +23,11 @@ class Play extends Phaser.Scene{
 
     create(){
         //Dimensions de la scène actuelle (déterminée dans Tiled)
+        this.SCREEN_WIDTH = this.config.width;
+        this.SCREEN_HEIGHT = this.config.height;
         this.MAP_WIDTH = 960;
         this.MAP_HEIGHT = 640; 
-        const zoom = this.config.zoomFactor; 
+        this.zoom = this.config.zoomFactor; 
 
 
         //Creation de la scene : map + layers
@@ -47,7 +52,9 @@ class Play extends Phaser.Scene{
          this.physics.add.collider(enemies, layers.layer_ground);
          this.physics.add.collider(enemies, this.player, this.onPlayerCollision);
          this.physics.add.collider(enemies, this.player.projectiles, this.onProjectileCollision);
+         this.physics.add.overlap(enemies, this.player.windBox, this.onWindOverlap, null, this);
 
+        
 
 
          
@@ -65,9 +72,32 @@ class Play extends Phaser.Scene{
      
         //WIND FORCE
         this.windActive = false; 
-        this.windDirection = "left"; 
+        this.windDirection = "right"; 
         this.maxWindVelocity = 60; 
         this.windVelocity = 0; 
+
+        this.windedLeafParticles = this.add.particles('leaf');
+        this.windEmitter = this.windedLeafParticles.createEmitter({
+            
+            x: 0,
+            y: 0,
+            emitZone:{
+                source : new Phaser.Geom.Rectangle(-10, -this.SCREEN_HEIGHT, 10, this.SCREEN_HEIGHT*3),
+                type: "random",
+            },
+            lifespan: 20000,
+            speedX: { min: this.maxWindVelocity - 20 , max: this.maxWindVelocity + 20 },
+            scale: { start: 0.8, end: 1 },
+            particleClass: WindParticle, 
+            quantity : 1, 
+            frequency: 50, 
+            follow : this.player,
+            followOffset: {x: -this.SCREEN_WIDTH/2/this.zoom , y: -this.SCREEN_HEIGHT/2/this.zoom },
+            on:  false, 
+           
+            
+        });
+        this.windEmitter.scene = this; 
 
         
       
@@ -94,7 +124,7 @@ class Play extends Phaser.Scene{
 
         //Limites monde et caméra
         this.cameras.main.setBounds(0,0, this.MAP_WIDTH, this.MAP_HEIGHT); 
-        this.cameras.main.setZoom(zoom); 
+        this.cameras.main.setZoom(this.zoom); 
         this.cameras.main.startFollow(this.player); 
         this.cameras.main.followOffset.y =  10; 
         this.physics.world.setBounds(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
@@ -125,11 +155,11 @@ class Play extends Phaser.Scene{
     }
 
     onPlayerCollision(enemy, player){
-        player.getHit(enemy); 
+        player.getHit(enemy.damages); 
     }
 
     onProjectileCollision(enemy, projectile){
-        enemy.getHit(); 
+        enemy.getHit(projectile); 
         projectile.hit(enemy); 
     }
 
@@ -138,6 +168,14 @@ class Play extends Phaser.Scene{
             platform.setActive(); 
         }else{
             platform.setInactive();
+        }
+    }
+
+    onWindOverlap(enemy, wind){
+        
+        if(this.windActive && enemy.protected){
+            console.log("efoigzoif")
+            enemy.loseProtection(); 
         }
     }
 
@@ -196,6 +234,7 @@ class Play extends Phaser.Scene{
 
     createEnemies(layer, platformsLayer){
         const enemies = new Phaser.GameObjects.Group; 
+
         
         layer.objects.forEach(spawn => {
             let enemy = null; 
@@ -210,13 +249,18 @@ class Play extends Phaser.Scene{
             }else if(spawn.type == "StaticCloud"){
                 enemy = new STCloud(this,spawn.x, spawn.y);    
                 enemy.attackBox.addOverlap(this.player, this.onPlayerCollision);     
-            } 
+            }else if(spawn.type == "Caster"){
+                enemy = new Caster(this,spawn.x, spawn.y, spawn.properties[0].value);     
+            }else if(spawn.type == "Protected"){
+                enemy = new ProtectedEnemy(this,spawn.x, spawn.y);    
+            }  
+
             enemy.setPlatformColliders(platformsLayer); 
             enemies.add(enemy); 
             
         }); 
 
-        return enemies; 
+        return enemies ; 
     }
 
     createMovingPlatforms(layer){
@@ -256,11 +300,25 @@ class Play extends Phaser.Scene{
     checkPlantsWatered(particle){
         this.plants.children.each(function(plant) {
             if((particle.x > plant.x && particle.x < plant.x + plant.width) && (particle.y > plant.y && particle.y < plant.y + plant.height) ){
-
                 particle.lifeCurrent = 0; 
                 plant.grow();  
             }
         }, this);
+    }
+
+    checkFirePlaceWatered(particle){
+        this.firePlaces.children.each(function(fire) {
+            if((particle.x > fire.x && particle.x < fire.x + fire.width) && (particle.y > fire.y && particle.y < fire.y + fire.height) ){
+                particle.lifeCurrent = 0; 
+                fire.extinguish();  
+            }
+        }, this);
+    }
+
+    checkPlayerBurned(particle){
+        if((particle.x > this.player.x- this.player.width/2 && particle.x < this.player.x + this.player.width/2) && (particle.y > this.player.y && particle.y < this.player.y + this.player.height/2) ){
+            this.player.getHit(10); 
+        }
     }
 
 
@@ -297,7 +355,16 @@ class Play extends Phaser.Scene{
        this.playerHV.setText(playerH + ";" + playerV);
        this.currentPlayer.setText(this.player.currentHero);
 
-      
+       //Update wind particles emitter position
+       if(this.windDirection == "right"){ 
+            this.windEmitter.startFollow(this.player, -this.SCREEN_WIDTH/2/this.zoom, -this.SCREEN_HEIGHT/2/this.zoom);
+            this.windEmitter.setSpeedX({ min: this.maxWindVelocity*2 - 40 , max: this.maxWindVelocity*2 + 40 });
+       }else{
+            this.windEmitter.startFollow(this.player, this.SCREEN_WIDTH/2/this.zoom, -this.SCREEN_HEIGHT/2/this.zoom);
+            this.windEmitter.setSpeedX({ min: -this.maxWindVelocity*2 + 40 , max: -this.maxWindVelocity*2 - 40 });
+       }
+
+
       
     //    this.light.x = this.player.x;
     //    this.light.y = this.player.y;

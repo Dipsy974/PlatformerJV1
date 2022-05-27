@@ -52,6 +52,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.auraBox.active = false; 
 
+        this.windBox = this.scene.physics.add.sprite(this.x, this.y, 'none')
+            .setOrigin(0,0)
+            .setAlpha(0)
+            .setSize(this.width * 12, this.height * 3)
+            .setOffset(-this.width * 6, -this.height*2); 
+
         this.hpBar = new HealthBar(this.scene, this.scene.config.leftTopCorner.x + 5, this.scene.config.leftTopCorner.y + 5, this.hp); 
 
         //Personnage actif
@@ -65,7 +71,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.dashTrail = this.scene.physics.add.group({ allowGravity: false, collideWorldBounds: true });
 
         //Physique avec le monde
-        this.body.setGravityY(this.gravity); 
+        this.body.setGravityY(this.gravity);
+        this.setDepth(1);  
         this.setCollideWorldBounds(true); 
         this.setSize(16,28);
         this.setOffset(8,5);  
@@ -114,6 +121,36 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     update(time, delta){
 
+          //Dash effect
+          if(this.isDashing){
+            const silhouette = this.dashTrail.create(this.x, this.y,'hero_run').setPushable(false).setDepth(-1).setAlpha(0.8).setTintFill( 0x62bf76);
+            this.scene.tweens.addCounter({
+                from: 255,
+                to: 0,
+                duration: 50,
+                onUpdate: function (tween)
+                {
+                    const valueRB = Math.floor(tween.getValue());
+                    const valueG = 115 + Math.floor(Math.floor(tween.getValue())/1.82);
+    
+                    silhouette.setTintFill(Phaser.Display.Color.GetColor(valueRB, valueG, valueRB));   
+                }
+            });
+            // .setTintFill(0x62bf76)
+        }
+
+        this.dashTrail.children.each(function(silouhette) {
+            
+            silouhette.alpha -= 0.05 ;
+            if(silouhette.alpha <= 0){
+                silouhette.destroy(); 
+            }
+   
+        }, this);
+
+        
+
+
         if(this.cantMove){
             return; 
         }
@@ -137,6 +174,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.auraBox.x = this.x;
         this.auraBox.y = this.y; 
+        this.windBox.x = this.x;
+        this.windBox.y = this.y; 
 
         //Déplacements
         if(!this.isDashing){
@@ -212,7 +251,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                 this.isHovering = true; 
                 this.play("hover", true);
                 
-            }else if((!this.scene.windActive || !this.hoveringAvailable) && !this.isFalling){
+            }else if(!this.scene.windActive && !this.isFalling){
+                this.isHovering = false; 
+                this.isFalling = true; 
+                this.play("fall", true);
+            }else if(!this.hoveringAvailable && !this.isFalling){
                 this.isHovering = false; 
                 this.isFalling = true; 
                 this.play("fall", true);
@@ -228,9 +271,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.hoveringAvailable = false; 
             this.isDashing = true;
             if(this.dir == "left"){
-                this.setVelocityX(-this.speed * 2); 
+                this.setVelocityX(-this.speed * 3); 
             }else{
-                this.setVelocityX(this.speed * 2); 
+                this.setVelocityX(this.speed * 3); 
             }
            
             setTimeout(() => {
@@ -284,21 +327,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //    this.respawn(); 
         // }
 
-        //Dash effect
-        if(this.isDashing){
-            this.dashTrail.create(this.x, this.y,'hero_run').setPushable(false).setDepth(-1).setAlpha(0.8).setTintFill( 0x62bf76);
-
-            // .setTintFill(0x62bf76)
-        }
-
-        this.dashTrail.children.each(function(silouhette) {
-            
-            silouhette.alpha -= 0.1 ;
-            if(silouhette.alpha <= 0){
-                silouhette.destroy(); 
-            }
-   
-        }, this);
 
         //Swap Chara
         if(isAJustDown){
@@ -338,16 +366,20 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     activateWind(direction){
         this.scene.windActive = true;
         if(direction == "left"){
+            this.scene.windDirection = "left"; 
             this.scene.windVelocity = -this.scene.maxWindVelocity;
         }else{
+            this.scene.windDirection = "right"; 
             this.scene.windVelocity = this.scene.maxWindVelocity; 
         }
+        this.scene.windEmitter.start(); 
        
     }
 
     stopWind(){
         this.scene.windActive = false; 
         this.scene.windVelocity = 0; 
+        this.scene.windEmitter.stop(); 
     }
 
     savePosition(point){
@@ -371,21 +403,21 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }, 50);
     }
 
-    getHit(opponent){
+    getHit(damages){
         if(!this.isHit){
             this.isHit = true;
             this.cantMove = true; 
             this.bounceHit();
             const tweenBounceAnim = this.playDamageTween(); 
 
-            this.hp -= opponent.damages;
+            this.hp -= damages;
             this.hpBar.decrease(this.hp); 
             
             this.scene.time.delayedCall(500, () => {
                 this.cantMove = false;  
             });
 
-            this.scene.time.delayedCall(1000, () => {
+            this.scene.time.delayedCall(1500, () => {
                 this.isHit = false;
                 tweenBounceAnim.stop(); 
                 this.clearTint(); 
@@ -393,6 +425,22 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         }
     }
+
+    getDragged(caster, player){
+       player.cantMove = true;
+       player.scene.tweens.add({
+            targets: player,
+            x: caster.x,
+            // y: caster.y,
+            duration: 800,
+            ease: 'Power2',
+             
+        });
+       setTimeout(() => {
+        player.cantMove = false;
+       }, 50);
+    }
+
 
     playDamageTween(){
         return this.scene.tweens.add({

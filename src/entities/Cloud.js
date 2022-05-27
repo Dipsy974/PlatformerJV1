@@ -62,7 +62,8 @@ class Cloud extends Phaser.Physics.Arcade.Sprite{
         }
 
         for(const particle of this.particleEmmiter.alive){
-            this.scene.checkPlantsWatered(particle);  
+            this.scene.checkPlantsWatered(particle); 
+            this.scene.checkFirePlaceWatered(particle); 
         }
     }
 

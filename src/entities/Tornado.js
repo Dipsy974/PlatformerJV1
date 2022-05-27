@@ -33,9 +33,29 @@ class Tornado extends Enemy{
 
     update(time,delta){
         super.update(time,delta);
+        this.patrol(time,delta); 
         if(!this.active){return ;}
         this.play("enemy_run", true); 
         
+    }
+
+    patrol(time,delta){
+        // Pour éviter les erreurs : ne lance pas le raycasting si pas de body ou si ennemi dans les airs
+        if(!this.body || !this.body.onFloor()){
+            return; 
+        }
+
+        //Raycasting pour changer direction ennemi quand près d'un rebord 
+        const {ray, isHitting} = this.raycast(this.body, this.platformCollidersLayer , 30, 2, 1); 
+        this.rayGraphics.clear(); 
+        this.rayGraphics.strokeLineShape(ray); 
+
+        //Threshold de 100ms pour ne pas répéter l'action Turn plein de fois d'affilé
+        if(!isHitting && this.timeFromLastTurn + 1000 < time){
+            this.setFlipX(!this.flipX); 
+            this.setVelocityX(this.speed = -this.speed); 
+            this.timeFromLastTurn = time; 
+        }
     }
 
    
