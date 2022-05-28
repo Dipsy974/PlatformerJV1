@@ -1,11 +1,13 @@
 import PlayScene from '/src/scenes/Play.js';
 import PreloadScene from '/src/scenes/Preload.js';
 import TestScene from '/src/scenes/EnvironnementTest.js';
+import DialogueSystem from '/src/scenes/DialogueSystem.js';
+import ChooseChar from '/src/scenes/ChooseChar.js';
 
 
 const WIDTH = 896;
 const HEIGHT = 448;
-const ZOOM_FACTOR = 2.0; 
+const ZOOM_FACTOR = 2; 
 
 const SHARED_CONFIG = {
   width: WIDTH,
@@ -17,7 +19,7 @@ const SHARED_CONFIG = {
   }
 }
 
-const Scenes = [PreloadScene, PlayScene, TestScene];
+const Scenes = [PreloadScene, PlayScene, TestScene, DialogueSystem, ChooseChar];
 const createScene = Scene => new Scene(SHARED_CONFIG) //A voir
 const initScenes = () => Scenes.map(createScene) 
 
@@ -28,7 +30,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+      // debug: true,
     }
   },
   fps: {

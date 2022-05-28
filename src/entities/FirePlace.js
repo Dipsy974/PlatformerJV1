@@ -36,7 +36,7 @@ class FirePlace extends Phaser.Physics.Arcade.Sprite{
         this.smokeEmitter = this.smokeParticles.createEmitter({
             
             x: {min: this.startParticleZone, max: this.endParticleZone},
-            y: this.y + this.height/4,
+            y: this.y + 2,
             lifespan: 800,
             speedY: { min: -20, max: -50 },
             scale: { start: 0.8, end: 0.1 },

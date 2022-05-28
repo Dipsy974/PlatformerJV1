@@ -19,7 +19,9 @@ class Play extends Phaser.Scene{
         this.config = config;  
     }
     
-
+    init(data){
+  
+    }
 
     create(){
         //Dimensions de la scène actuelle (déterminée dans Tiled)
@@ -28,6 +30,7 @@ class Play extends Phaser.Scene{
         this.MAP_WIDTH = 960;
         this.MAP_HEIGHT = 640; 
         this.zoom = this.config.zoomFactor; 
+        this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
 
         //Creation de la scene : map + layers
@@ -35,16 +38,20 @@ class Play extends Phaser.Scene{
         const layers = this.createLayers(map); 
         const playerPoints = this.getPlayerPoints(layers.playerPoints); 
         const endZone = this.createEnd(playerPoints.end); 
-       
+        const dialogsPoints = this.createDialogsPoints(layers.dialog_points); 
  
-       
+
         //Creation joueur
         this.player = this.createPlayer(playerPoints); 
-        //ajout colliders au joueur
-        this.player.addCollider(layers.layer_ground); 
-        this.player.addOverlapOnce(endZone,this.endLevel); 
 
        
+        //ajout colliders au joueur
+        this.player.addCollider(layers.layer_ground); 
+        this.player.addOverlapOnce(endZone,this.endLevel, this); 
+        this.physics.add.overlap(this.player, dialogsPoints, this.startDialog, null, this); 
+
+
+      
 
          //Creation enemies
          const enemies = this.createEnemies(layers.enemiesSpawns, layers.layer_ground); //On passe aussi les plateformes en paramètres pour gérer le raycasting
@@ -53,6 +60,7 @@ class Play extends Phaser.Scene{
          this.physics.add.collider(enemies, this.player, this.onPlayerCollision);
          this.physics.add.collider(enemies, this.player.projectiles, this.onProjectileCollision);
          this.physics.add.overlap(enemies, this.player.windBox, this.onWindOverlap, null, this);
+         this.physics.add.collider(this.player, this.player.projectiles, this.onProjectileCollision);
 
         
 
@@ -128,6 +136,8 @@ class Play extends Phaser.Scene{
         this.cameras.main.startFollow(this.player); 
         this.cameras.main.followOffset.y =  10; 
         this.physics.world.setBounds(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
+
+        
         
     }
 
@@ -207,9 +217,11 @@ class Play extends Phaser.Scene{
 
         const layer_fires = map.getObjectLayer("fire_points"); 
 
+        const dialog_points = map.getObjectLayer("dialogs_points"); 
+
         layer_ground.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires}; 
+        return {layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
     }
 
     createPlayer(playerPoints){
@@ -230,6 +242,27 @@ class Play extends Phaser.Scene{
             .setAlpha(0)
             .setSize(5, this.MAP_HEIGHT*2); 
         return endLevel; 
+    }
+
+    createDialogsPoints(layer){
+        
+        const groupDialogPoints = new Phaser.GameObjects.Group; 
+
+        layer.objects.forEach(dialogPoint => {
+            const dialog = this.physics.add.sprite(dialogPoint.x, dialogPoint.y, 'none')
+            dialog.setAlpha(0)
+            dialog.setSize(5, 100); 
+
+            dialog.nb = dialogPoint.properties[0].value;  //Attribution d'un numéro de dialogue à un triggerbox, par Tiled     
+            
+            if(dialogPoint.properties[1]){
+                dialog.activation = dialogPoint.properties[1].value;   //Attribution d'une propriété "personnage débloqué" aux dialogues concernés
+            }
+
+            groupDialogPoints.add(dialog); 
+        }); 
+
+        return groupDialogPoints; 
     }
 
     createEnemies(layer, platformsLayer){
@@ -347,6 +380,21 @@ class Play extends Phaser.Scene{
         console.log("Bravo"); 
     }
 
+    startDialog(player, dialogPoint){
+        this.scene.launch('DialogueSystem',{
+            nbDialog : dialogPoint.nb,  //Passage de l'information du numéro du dialogue à jouer, à la scène dialogue
+            currentScene : this.sceneName,
+            currentHero: this.player.currentHeroIndex
+        }); 
+        this.scene.pause();
+
+        if(dialogPoint.activation){ //Certains dialogues débloquent les personnages, si ils ont la propriété, ajoute le personnage en question à la classe joueur
+            this.player.addCharacter(dialogPoint.activation); 
+        }
+
+        dialogPoint.destroy(); 
+    }
+
     update(){
         //ENVIRONNEMENT DE TEST
         //Position joueur en tiles
@@ -363,7 +411,6 @@ class Play extends Phaser.Scene{
             this.windEmitter.startFollow(this.player, this.SCREEN_WIDTH/2/this.zoom, -this.SCREEN_HEIGHT/2/this.zoom);
             this.windEmitter.setSpeedX({ min: -this.maxWindVelocity*2 + 40 , max: -this.maxWindVelocity*2 - 40 });
        }
-
 
       
     //    this.light.x = this.player.x;

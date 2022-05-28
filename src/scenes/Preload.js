@@ -29,6 +29,16 @@ class Preload extends Phaser.Scene{
         this.load.image("fire", "/assets/fire.png");
         this.load.image("smoke", "/assets/smoke.png");
         this.load.image("leaf", "/assets/leaf.png");
+        this.load.image("dialogUI", "/assets/dialog.png");
+        this.load.image("dialog_sun", "/assets/dialog_sun.png");
+        this.load.image("dialog_rain", "/assets/dialog_rain.png");
+        this.load.image("dialog_wind", "/assets/dialog_wind.png");
+        this.load.image("choose_sun", "/assets/choose_sun.png");
+        this.load.image("choose_rain", "/assets/choose_rain.png");
+        this.load.image("choose_wind", "/assets/choose_wind.png");
+        this.load.image("choose_screen", "/assets/chooseScreen.png");
+
+
         this.load.spritesheet("platform", "/assets/platform.png",
         {frameWidth: 32, frameHeight: 8});
         this.load.spritesheet("growing_plant", "/assets/growing_plant.png",

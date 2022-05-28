@@ -40,8 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":329.696666666667,
-                 "y":154.667
+                 "x":30.03,
+                 "y":583.667
                 }, 
                 {
                  "height":0,
@@ -56,6 +56,87 @@
                  "y":200.667
                 }],
          "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"dialogs_points",
+         "objects":[
+                {
+                 "height":0,
+                 "id":61,
+                 "name":"Dialog",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Number",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"Personnage",
+                         "type":"string",
+                         "value":"Rain"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":584,
+                 "y":419
+                }, 
+                {
+                 "height":0,
+                 "id":63,
+                 "name":"Dialog",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Number",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":659,
+                 "y":202
+                }, 
+                {
+                 "height":0,
+                 "id":64,
+                 "name":"Dialog",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Number",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"Personnage",
+                         "type":"string",
+                         "value":"Wind"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":340,
+                 "y":153
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"Number",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,
@@ -140,8 +221,8 @@
                  "type":"Caster",
                  "visible":true,
                  "width":0,
-                 "x":841.333333333333,
-                 "y":200.666666666667
+                 "x":768.333,
+                 "y":198.667
                 }, 
                 {
                  "height":0,
@@ -158,7 +239,7 @@
                  "type":"Protected",
                  "visible":true,
                  "width":0,
-                 "x":420.666666666667,
+                 "x":420.667,
                  "y":158
                 }],
          "opacity":1,
@@ -340,8 +421,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":61,
+ "nextlayerid":10,
+ "nextobjectid":66,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

@@ -14,6 +14,7 @@ class ProtectedEnemy extends Enemy{
         //Variables entité
         this.speed = 30; 
         this.protected = true; 
+        this.protectionDuration = 100; 
         this.hp = 2; 
 
 
@@ -45,10 +46,11 @@ class ProtectedEnemy extends Enemy{
             
             x: this.x,
             y: this.y,
-            lifespan: 1000,
-            speedX: { min: 20 , max: 40 },
-            scale: { start: 1, end: 0 },
-            quantity : 4, 
+            speed: { min: -200, max: 200 },
+            angle: { min: 0, max: 360 }, 
+            lifespan: 300,
+            scale: { start: 2, end: 1 },
+            quantity : 10, 
             frequency: 10, 
             on:  false, 
               
@@ -62,6 +64,8 @@ class ProtectedEnemy extends Enemy{
         if(this.protected){
             this.play("enemy4_run", true); 
         }
+
+       this.protectionEmitter.setPosition(this.x, this.y); 
    
         
     }
@@ -95,8 +99,11 @@ class ProtectedEnemy extends Enemy{
 
     loseProtection(){
         this.play("enemy3_idle", true); 
-        this.protected = false; 
-        this.protectionEmitter.explode(); 
+        this.protectionDuration -= 1; 
+        if(this.protectionDuration <= 0){
+            this.protected = false; 
+            this.protectionEmitter.explode(); 
+        }   
     }
 
    

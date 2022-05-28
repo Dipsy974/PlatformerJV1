@@ -4,6 +4,7 @@ import Projectile from "./PlayerProjectile.js";
 import Cloud from "./Cloud.js";
 import { getTimestamp } from "../utils/functions.js";
 
+
 //Classe Player : comportement personnage
 class Player extends Phaser.Physics.Arcade.Sprite{
 
@@ -61,11 +62,19 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.hpBar = new HealthBar(this.scene, this.scene.config.leftTopCorner.x + 5, this.scene.config.leftTopCorner.y + 5, this.hp); 
 
         //Personnage actif
-        this.listeHeros = ["Sun", "Rain", "Wind"]; 
-        this.currentHero = "Sun"; 
+        this.listeHeros = ["Sun"]; 
         this.currentHeroIndex = 0; 
+        this.currentHero = this.listeHeros[this.currentHeroIndex]; 
 
         this.heroChoice = false; 
+
+     
+        //Récupère héro choisi de l'écran de sélection 
+        this.scene.events.on('resume', (scene, data) => {
+            
+            this.currentHeroIndex = data.chosenHero; 
+            this.swapCharacter(); 
+        });
 
         //Groupe pour effet dash
         this.dashTrail = this.scene.physics.add.group({ allowGravity: false, collideWorldBounds: true });
@@ -295,6 +304,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         if(this.currentHero == "Sun"){
             if(rKey.isDown){
                 this.auraBox.active = true;
+                
             }else{
                 this.auraBox.active = false;
             }
@@ -328,31 +338,33 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         // }
 
 
-        //Swap Chara
-        if(isAJustDown){
-            this.currentHeroIndex -= 1; 
-            if(this.currentHeroIndex < 0){
-                this.currentHeroIndex = 2; 
-            }
-            this.currentHero = this.listeHeros[this.currentHeroIndex];
-            this.stopWind(); 
+
+        //Swap Chara Screen
+
+        if(aKey.isDown){
+            this.scene.scene.launch('ChooseCharScene',
+             {currentHero: this.currentHeroIndex,
+              currentScene : this.scene.sceneName,
+              listHeroes : this.listeHeros}); 
+            this.scene.scene.pause();
         }
-        if(isEJustDown){
-            this.currentHeroIndex += 1; 
-            if(this.currentHeroIndex > 2){
-                this.currentHeroIndex = 0; 
-            }
-            this.currentHero = this.listeHeros[this.currentHeroIndex];
-            this.stopWind(); 
-        }
-   
+
     }
 
     
 
     swapCharacter(){
-
+        this.currentHero = this.listeHeros[this.currentHeroIndex];
+        if(this.currentHero != "Wind"){
+            this.stopWind(); 
+        }
     }
+
+    addCharacter(characterName){
+        this.listeHeros.push(characterName); 
+    }
+
+  
 
     toggleWind(direction){
         if(this.scene.windActive){
