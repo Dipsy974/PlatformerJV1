@@ -12,10 +12,10 @@ import WindParticle from "../entities/WindParticles.js";
 
 
 
-class Play extends Phaser.Scene{
+class Scene02 extends Phaser.Scene{
 
     constructor(config){
-        super("PlayScene");
+        super("Scene02");
         this.config = config;  
     }
     
@@ -29,8 +29,8 @@ class Play extends Phaser.Scene{
         //Dimensions de la scène actuelle (déterminée dans Tiled)
         this.SCREEN_WIDTH = this.config.width;
         this.SCREEN_HEIGHT = this.config.height;
-        this.MAP_WIDTH = 960;
-        this.MAP_HEIGHT = 640; 
+        this.MAP_WIDTH = 1120;
+        this.MAP_HEIGHT = 240; 
         this.zoom = this.config.zoomFactor; 
         this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
@@ -49,7 +49,7 @@ class Play extends Phaser.Scene{
        
         //ajout colliders au joueur
         this.player.addCollider(layers.layer_ground); 
-        this.player.addOverlap(endZone,this.endLevel); 
+        this.physics.add.overlap(this.player, endZone,this.endLevel, null, this); 
         this.physics.add.overlap(this.player, dialogsPoints, this.startDialog, null, this); 
 
 
@@ -196,7 +196,7 @@ class Play extends Phaser.Scene{
 
     //Creation de la map
     createMap(){
-        const map = this.make.tilemap({key: "map_playground"});
+        const map = this.make.tilemap({key: "scene_02"});
         map.addTilesetImage("tileset", "tileset"); //Le premier est le nom du tileset sous Tiled et dans jSon, le deuxième est la clé du png utilisé
 
         return map; 
@@ -244,9 +244,9 @@ class Play extends Phaser.Scene{
             .setOrigin(0,0)
             .setAlpha(0)
             .setSize(5, this.MAP_HEIGHT*2); 
-        if(end.properties[0]){
-            endLevel.nextZone = end.properties[0].value; 
-        }
+            if(end.properties){
+                endLevel.nextZone = end.properties[0].value; 
+            }
         return endLevel; 
     }
 
@@ -383,11 +383,11 @@ class Play extends Phaser.Scene{
 
    
     endLevel(player, endPoint){
-        player.scene.scene.start(endPoint.nextZone, {
+        this.scene.start(endPoint.nextZone, {
             heroes_available: player.listeHeros,
             current_hero : player.currentHeroIndex ,
             hero_hp : player.hp 
-        });  
+        }); 
     }
 
     startDialog(player, dialogPoint){
@@ -431,4 +431,4 @@ class Play extends Phaser.Scene{
 
 }
 
-export default Play;
+export default Scene02;

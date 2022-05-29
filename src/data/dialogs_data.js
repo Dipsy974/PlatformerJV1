@@ -18,6 +18,11 @@ export const getDialogs = () => {
     {name : "Rain", avatar: "dialog_rain",words: ["Gros con"]},
     {name : "Sun", avatar: "dialog_sun",words: ["AaaAaaAa"]}]; 
 
+
+    dialogs_data[3] = [{name : "Sun", avatar: "dialog_sun",words: ["Les dialogues fonctionnent toujours dans cette scène ?"]},
+    {name : "Wind", avatar:"dialog_wind", words: ["Ben on dirait hein"]},
+    {name : "Rain", avatar: "dialog_rain",words: ["Hihihi"]}]; 
+
     return dialogs_data; 
 }
     

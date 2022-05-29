@@ -7,6 +7,7 @@ class Preload extends Phaser.Scene{
     preload(){
         //PRELOAD DES TILES/MAPS
         this.load.tilemapTiledJSON("map_playground", "/maps/map_playground.json");
+        this.load.tilemapTiledJSON("scene_02", "/maps/scene02.json");
         this.load.image("tileset", "/assets/tileset.png");
         //this.load.image("hero", "/assets/hero.png"); 
 
@@ -62,7 +63,12 @@ class Preload extends Phaser.Scene{
     }
 
     create(){
-        this.scene.start("PlayScene");
+        this.scene.start("PlayScene",{
+            heroes_available: ["Sun"],
+            current_hero : 0,
+            hero_hp : 150
+        });
+
     }
 
 }

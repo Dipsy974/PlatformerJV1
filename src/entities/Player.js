@@ -8,13 +8,18 @@ import { getTimestamp } from "../utils/functions.js";
 //Classe Player : comportement personnage
 class Player extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, x, y){
+    constructor(scene, x, y, heroes_available, current_hero, hp){
         super(scene, x,y, "hero_run"); 
         scene.add.existing(this); //Ajoute l'objet à la scène 
         scene.physics.add.existing(this); //Donne un physic body à l'objet
 
         //Mixins collisions
         Object.assign(this, collidable); 
+
+        //Propriétés à passer de scène en scène
+        this.listeHeros = heroes_available; 
+        this.currentHeroIndex = current_hero; 
+        this.hp = hp; 
 
         this.init();
         this.initEvents(); 
@@ -36,7 +41,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.isHit = false; 
         this.cantMove = false; 
         this.bounceVelocity = 100; 
-        this.hp = 150; 
+
         this.projectiles = new Phaser.GameObjects.Group;
         this.clouds = new Phaser.GameObjects.Group; 
         this.fireCooldown = 400; 
@@ -62,8 +67,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.hpBar = new HealthBar(this.scene, this.scene.config.leftTopCorner.x + 5, this.scene.config.leftTopCorner.y + 5, this.hp); 
 
         //Personnage actif
-        this.listeHeros = ["Sun"]; 
-        this.currentHeroIndex = 0; 
+
         this.currentHero = this.listeHeros[this.currentHeroIndex]; 
 
         this.heroChoice = false; 

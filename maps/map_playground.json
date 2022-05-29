@@ -40,14 +40,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":30.03,
-                 "y":583.667
+                 "x":803.03,
+                 "y":531.667
                 }, 
                 {
                  "height":0,
                  "id":2,
                  "name":"End",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"NextScene",
+                         "type":"string",
+                         "value":"Scene02"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -422,7 +428,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":66,
+ "nextobjectid":67,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

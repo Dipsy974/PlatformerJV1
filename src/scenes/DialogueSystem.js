@@ -15,6 +15,8 @@ class DialogueSystem extends Phaser.Scene{
     }
 
     create(){
+        this.scene.bringToTop(); 
+
         this.cursors = this.input.keyboard.createCursorKeys();
         
         this.SCREEN_WIDTH = this.config.width;
