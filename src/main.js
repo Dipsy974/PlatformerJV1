@@ -3,6 +3,7 @@ import PreloadScene from '/src/scenes/Preload.js';
 import TestScene from '/src/scenes/EnvironnementTest.js';
 import DialogueSystem from '/src/scenes/DialogueSystem.js';
 import ChooseChar from '/src/scenes/ChooseChar.js';
+import UIScene from '/src/scenes/UIScene.js';
 import Scene02 from '/src/scenes/Scene_02.js';
 
 
@@ -20,7 +21,7 @@ const SHARED_CONFIG = {
   }
 }
 
-const Scenes = [PreloadScene, PlayScene, TestScene, DialogueSystem, ChooseChar, Scene02];
+const Scenes = [PreloadScene, PlayScene, UIScene, TestScene, DialogueSystem, ChooseChar, Scene02];
 const createScene = Scene => new Scene(SHARED_CONFIG) //A voir
 const initScenes = () => Scenes.map(createScene) 
 

@@ -439,6 +439,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                 this.clearTint(); 
             });
 
+            //  Event à passer dans la scène UI
+            this.scene.events.emit('loseHp', this.hp);
+
         }
     }
 

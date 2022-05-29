@@ -38,6 +38,7 @@ class Preload extends Phaser.Scene{
         this.load.image("choose_rain", "/assets/choose_rain.png");
         this.load.image("choose_wind", "/assets/choose_wind.png");
         this.load.image("choose_screen", "/assets/chooseScreen.png");
+        this.load.image("hpUI", "/assets/ui_life.png");
 
 
         this.load.spritesheet("platform", "/assets/platform.png",
@@ -68,6 +69,7 @@ class Preload extends Phaser.Scene{
             current_hero : 0,
             hero_hp : 150
         });
+        this.scene.launch("UIScene"); 
 
     }
 

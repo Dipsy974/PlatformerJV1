@@ -34,7 +34,7 @@ class DialogueSystem extends Phaser.Scene{
         this.soloStep = 0; 
 
         this.dialogueName.setText(this.currentDialog[this.dialogStep].name); 
-        this.dialogueText.setText(this.currentDialog[this.dialogStep].words[this.soloStep]);
+        this.typewriteText(this.currentDialog[this.dialogStep].words[this.soloStep]);
         this.dialogueAvatar.setTexture(this.currentDialog[this.dialogStep].avatar);
 
     }
@@ -51,25 +51,50 @@ class DialogueSystem extends Phaser.Scene{
     }
 
     nextLine(){
-        this.soloStep += 1;
-
-        if(this.currentDialog[this.dialogStep].words.length > this.soloStep){
-            this.dialogueName.setText(this.currentDialog[this.dialogStep].name); 
+        //Check si la taille du texte en cours d'écriture est inférieure au texte final, et set le texte final 
+        if(this.dialogueText.text.length < this.currentDialog[this.dialogStep].words[this.soloStep].length ){
+            this.timerText.remove(); //arrete le timer d'écriture automatique
+            this.dialogueText.text = "";  //reset l'affichage de la boite de dialogue
             this.dialogueText.setText(this.currentDialog[this.dialogStep].words[this.soloStep]);
-            this.dialogueAvatar.setTexture(this.currentDialog[this.dialogStep].avatar);
-        }else{
-            this.soloStep = 0; 
-            this.dialogStep += 1; 
-            if(this.currentDialog.length > this.dialogStep){
-                this.dialogueName.setText(this.currentDialog[this.dialogStep].name); 
-                this.dialogueText.setText(this.currentDialog[this.dialogStep].words[this.soloStep]);
-                this.dialogueAvatar.setTexture(this.currentDialog[this.dialogStep].avatar);
-            }else{
-                this.scene.resume(this.sceneNameData, {chosenHero : this.currentChoice});
-                this.scene.stop();
-            }
-        }  
+        }else{ // Sinon on passe au dialogue suivant
+            this.soloStep += 1;
+
+            if(this.currentDialog[this.dialogStep].words.length > this.soloStep){ //Check si un personnage a encore des lignes de dialogue
+
+                this.typewriteText(this.currentDialog[this.dialogStep].words[this.soloStep]);
+
+            }else{ //Sinon on passe au prochain personnage 
+                this.soloStep = 0; 
+                this.dialogStep += 1; 
+                if(this.currentDialog.length > this.dialogStep){
+                    this.dialogueName.setText(this.currentDialog[this.dialogStep].name); 
+                    this.typewriteText(this.currentDialog[this.dialogStep].words[this.soloStep]);
+                    this.dialogueAvatar.setTexture(this.currentDialog[this.dialogStep].avatar);
+                }else{ // On ferme la scène dialogue si la totalité a été lue 
+                    this.scene.resume(this.sceneNameData, {chosenHero : this.currentChoice});
+                    this.scene.stop();
+                }
+            }  
+        }
         
+        
+    }
+
+    //Affiche le texte progressivement
+    typewriteText(text){
+        this.dialogueText.text = ""; 
+        const length = text.length
+        let i = 0
+        this.timerText = this.time.addEvent({
+            callback: () => {
+                this.dialogueText.text += text[i]
+                ++i
+            },
+            repeat: length - 1,
+            delay: 50,
+
+
+    })
     }
 
 }
