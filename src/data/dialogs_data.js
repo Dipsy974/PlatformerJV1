@@ -3,9 +3,7 @@ export const getDialogs = () => {
 
     dialogs_data[0] = [{name : "Sun", avatar: "dialog_sun",words: ["Olala, euuh", "C'est trop haut"]},
     {name : "Rain", avatar:"dialog_rain", words: ["Vazy je t'aide", "Je sais faire pousser de la beuh"]},
-    {name : "Sun", avatar: "dialog_sun",words: ["Woaaah t'es gentil", "Viens on se pécho"]},
-    {name : "Rain", avatar: "dialog_rain",words: ["Quoi ?!"]},
-    {name : "Sun", avatar: "dialog_sun",words: ["Allo ?"]}]; 
+    ]; 
 
 
 

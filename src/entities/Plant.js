@@ -1,7 +1,7 @@
 class Plant extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, x, y, size){
-        super(scene, x,y, "plant"); 
+        super(scene, x,y, "growing_plant"); 
         scene.add.existing(this); //Ajoute l'objet à la scène 
         scene.physics.add.existing(this); //Donne un physic body à l'objet
 
@@ -21,7 +21,12 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
         //Animations
         this.scene.anims.create({
             key: "growing",
-            frames: this.scene.anims.generateFrameNumbers("growing_plant", {start: 0, end: 3}),
+            frames: this.scene.anims.generateFrameNumbers("growing_plant", {start: 1, end: 4}),
+            frameRate: 10,
+        });
+        this.scene.anims.create({
+            key: "growing_platform",
+            frames: this.scene.anims.generateFrameNumbers("plant_platform", {start: 0, end: 6}),
             frameRate: 10,
         });
 
@@ -33,17 +38,23 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+
     grow(){
         if(!this.isGrowing){
             this.anims.play("growing"); 
             this.isGrowing = true;
-            this.on('animationcomplete', () => {
-                if(this.size < this.maxSize){
-                    this.addNewStem(this);
-                }else{
-                    this.addPlantPlatform(this);
+            this.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject) {
+
+                if(frame.index == 4){
+                    if(this.size < this.maxSize){
+                        this.addNewStem(this);
+                    }else{
+                        this.addPlantPlatform(this);
+                    } 
                 }
+    
             });
+
            
         }   
     }
@@ -52,20 +63,37 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
         this.size += 1; 
         const newStem = this.scene.physics.add.sprite(previousPlant.x, previousPlant.y - previousPlant.height, "growing_plant").setOrigin(0);
         newStem.anims.play("growing"); 
-        newStem.on('animationcomplete', () => {
-            if(this.size < this.maxSize){
-                this.addNewStem(newStem);
-            }else{
-                this.addPlantPlatform(newStem);
+
+        newStem.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject) {
+
+            if(frame.index == 4){
+                if(this.size < this.maxSize){
+                    this.addNewStem(newStem);
+                }else{
+                    this.addPlantPlatform(newStem);
+                } 
             }
+
+        }, this);
+
+        
+        // newStem.on('animationcomplete', () => {
+        //     if(this.size < this.maxSize){
+        //         this.addNewStem(newStem);
+        //     }else{
+        //         this.addPlantPlatform(newStem);
+        //     }
             
-        });
+        // });
     }
 
     addPlantPlatform(previousPlant){
-        const plantPlatform = this.scene.physics.add.sprite(previousPlant.x - previousPlant.width/2, previousPlant.y - previousPlant.height/2, "plant_platform");
-        plantPlatform.setOrigin(0); 
+        const plantPlatform = this.scene.physics.add.sprite(previousPlant.x + 7 , previousPlant.y - 3, "plant_platform");
+        // plantPlatform.setOrigin(0); 
         plantPlatform.setImmovable(true); 
+        plantPlatform.anims.play("growing_platform"); 
+        plantPlatform.setSize(51,9);
+        plantPlatform.setOffset(5,8); 
         this.scene.physics.add.collider(this.scene.player, plantPlatform); 
     }
 

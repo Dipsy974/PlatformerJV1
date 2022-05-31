@@ -27,7 +27,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     init(){
         //Variables personnage
-        this.gravity = 500; 
+        this.gravity = 400; 
         this.speed = 120; 
         this.jumpSpeed = 200; 
         this.additionalJumps = 1;
@@ -49,6 +49,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.lastSaveX = 0;
         this.lastSaveY = 0; 
+
+
 
         this.auraBox = this.scene.physics.add.sprite(this.x, this.y, 'none')
             .setOrigin(0,0)
@@ -72,11 +74,18 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.heroChoice = false; 
 
+
+        this.animsPlayer = [{idle : "idle_sun", run : "run_sun", jump : "jump_sun", fall : "fall_sun" , aura_cast : "aura_cast_sun", aura: "aura_sun" ,cast : "cast_sun" },
+        {idle : "idle_rain", run : "run_rain", jump : "jump_rain" , fall : "fall_rain" , cast : "cast_rain"},
+        {idle : "idle_wind", run : "run_wind", jump : "jump_wind" , fall : "fall_wind", dash : "dash_wind", cast : "cast_wind", hover:"hover_wind"}]; 
+
+
      
         //Récupère héro choisi de l'écran de sélection 
         this.scene.events.on('resume', (scene, data) => {
             
             this.currentHeroIndex = data.chosenHero; 
+            this.isFalling = false; // Réinitialise la chute pour changer l'animation 
             this.swapCharacter(); 
         });
 
@@ -87,8 +96,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.body.setGravityY(this.gravity);
         this.setDepth(1);  
         this.setCollideWorldBounds(true); 
-        this.setSize(16,28);
-        this.setOffset(8,5);  
+        this.setSize(11,20);
+        this.setOffset(26,28);  
         
         
         //Animations
@@ -124,7 +133,143 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             frames: [{ key: 'hero_run', frame: 8 }],
             frameRate: 12,
             repeat: -1
-        })
+        });
+
+        // NOUVELLES ANIMATIONS HEROS
+        // ANIMS SUN
+        this.scene.anims.create({
+            key: "idle_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 0, end: 1}),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "run_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 2, end: 9}),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "jump_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 10, end: 11}),
+            frameRate: 20,
+        });
+        this.scene.anims.create({
+            key: "fall_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 12, end: 14}),
+            frameRate: 12,
+            repeat: 0
+        });
+        this.scene.anims.create({
+            key: "aura_cast_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 15, end: 18}),
+            frameRate: 12,
+            repeat: 0
+        });
+        this.scene.anims.create({
+            key: "aura_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 19, end: 24}),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "cast_sun",
+            frames: this.scene.anims.generateFrameNumbers("sun_spritesheet", {start: 25, end: 26}),
+            frameRate: 6,
+        });
+
+
+         // ANIMS RAIN
+         this.scene.anims.create({
+            key: "idle_rain",
+            frames: this.scene.anims.generateFrameNumbers("rain_spritesheet", {start: 0, end: 1}),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "run_rain",
+            frames: this.scene.anims.generateFrameNumbers("rain_spritesheet", {start: 2, end: 9}),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "jump_rain",
+            frames: this.scene.anims.generateFrameNumbers("rain_spritesheet", {start: 10, end: 12}),
+            frameRate: 20,
+        });
+        this.scene.anims.create({
+            key: "fall_rain",
+            frames: this.scene.anims.generateFrameNumbers("rain_spritesheet", {start: 13, end: 15}),
+            frameRate: 12,
+            repeat: 0
+        });
+        this.scene.anims.create({
+            key: "cast_rain",
+            frames: this.scene.anims.generateFrameNumbers("rain_spritesheet", {start: 16, end: 22}),
+            frameRate: 12,
+        });
+
+
+         // ANIMS WIND
+         this.scene.anims.create({
+            key: "idle_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 0, end: 1}),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "run_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 2, end: 9}),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "jump_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 10, end: 11}),
+            frameRate: 20,
+        });
+        this.scene.anims.create({
+            key: "fall_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 12, end: 14}),
+            frameRate: 12,
+            repeat: 0
+        });
+        this.scene.anims.create({
+            key: "hover_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 15, end: 16}),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: "dash_wind",
+            frames: [{ key: 'wind_spritesheet', frame: 17 }],
+            frameRate: 12,
+
+        });
+        this.scene.anims.create({
+            key: "cast_wind",
+            frames: this.scene.anims.generateFrameNumbers("wind_spritesheet", {start: 18, end: 25}),
+            frameRate: 12,
+        });
+
+
+        this.lightParticles = this.scene.add.particles('light_particles');
+
+    
+
+        this.lightParticleEmmiter = this.lightParticles.createEmitter({
+            x: this.x,
+            y: this.y,
+            lifespan: 200,
+            speed: 200, 
+            scale: { start: 0.7, end: 0 },
+            alpha: { start: 1, end: 0.5 },
+            on : false, 
+            
+        });
+
+        
+
     }
 
     initEvents(){
@@ -136,7 +281,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
           //Dash effect
           if(this.isDashing){
-            const silhouette = this.dashTrail.create(this.x, this.y,'hero_run').setPushable(false).setDepth(-1).setAlpha(0.8).setTintFill( 0x62bf76);
+            const silhouette = this.dashTrail.create(this.x, this.y,'wind_dash').setPushable(false).setDepth(-1).setAlpha(0.8).setTintFill( 0x62bf76).setFlipX(this.flipX);
             this.scene.tweens.addCounter({
                 from: 255,
                 to: 0,
@@ -189,6 +334,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.auraBox.y = this.y; 
         this.windBox.x = this.x;
         this.windBox.y = this.y; 
+        this.lightParticleEmmiter.setPosition(this.x, this.y);
+        
 
         //Déplacements
         if(!this.isDashing){
@@ -223,16 +370,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }
 
-      
+       
 
-        //Animations en fonction du déplacement
-        if(this.body.velocity.y == 0 || isOnFloor){
-            if(this.body.velocity.x != 0){
-                this.play("run", true); 
-            }else{
-                this.play("idle"); 
-            }
-        }
+        
        
 
         //Reset onFloor
@@ -245,7 +385,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         
         //Saut et chute 
-        if(isUpJustDown && (isOnFloor || this.jumpCount <= this.additionalJumps)){
+        if(isUpJustDown && (isOnFloor || this.jumpCount <= this.additionalJumps) && !this.auraBox.active){
             if(this.currentHero == "Rain"){
                 this.setVelocityY(-this.jumpSpeed * 1.3);    
             }else{
@@ -255,23 +395,24 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.jumpCount++; 
             this.isFalling = false; 
 
-            this.play("jump");  
+            this.play(this.animsPlayer[this.currentHeroIndex].jump);  
         }
 
         if(this.body.velocity.y > 0){
             if(this.currentHero == "Wind" && this.scene.windActive && this.hoveringAvailable){
                 this.isFalling = false;
                 this.isHovering = true; 
-                this.play("hover", true);
+                this.play(this.animsPlayer[this.currentHeroIndex].hover, true);
                 
             }else if(!this.scene.windActive && !this.isFalling){
                 this.isHovering = false; 
                 this.isFalling = true; 
-                this.play("fall", true);
+                this.play(this.animsPlayer[this.currentHeroIndex].fall, true);
+                
             }else if(!this.hoveringAvailable && !this.isFalling){
                 this.isHovering = false; 
                 this.isFalling = true; 
-                this.play("fall", true);
+                this.play(this.animsPlayer[this.currentHeroIndex].fall, true);
             }
         }else{
             this.isFalling = false;
@@ -279,10 +420,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }
 
 
+
+
          //Dash
          if(isSpaceJustDown && this.currentHero == "Wind"){
             this.hoveringAvailable = false; 
             this.isDashing = true;
+            this.anims.play(this.animsPlayer[this.currentHeroIndex].dash); 
             if(this.dir == "left"){
                 this.setVelocityX(-this.speed * 3); 
             }else{
@@ -297,7 +441,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //Projectile
         if(isSpaceJustDown && this.currentHero == "Sun"){
             if(getTimestamp() - this.timeFromLastShot < this.fireCooldown){ return; }
-            const beam = new Projectile(this.scene, this.x, this.y); 
+            this.anims.play(this.animsPlayer[this.currentHeroIndex].cast); 
+            const beam = new Projectile(this.scene, this.x, this.y + 5); 
             this.projectiles.add(beam); 
             beam.fire(this); 
             this.timeFromLastShot = getTimestamp(); 
@@ -307,20 +452,44 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //Aura
         if(this.currentHero == "Sun"){
             if(rKey.isDown){
+                if(!this.auraBox.active){
+                    this.anims.play(this.animsPlayer[this.currentHeroIndex].aura_cast); // commence  à jouer le cast que si auraBox est inactive
+                    this.on('animationcomplete', () => {  // joue la boucle une fois que l'animation de cast est finie
+                        if(this.auraBox.active){ // seulement si l'aura est active 
+                            this.anims.play(this.animsPlayer[this.currentHeroIndex].aura);   
+                        }
+                    });
+                }
                 this.auraBox.active = true;
+                this.setVelocityX(0);
+                this.lightParticleEmmiter.start(); 
+
                 
             }else{
                 this.auraBox.active = false;
+                this.lightParticleEmmiter.stop(); 
+
             }
         }else{
             this.auraBox.active = false;
         }
 
+
         //Spawn nuage
         if(this.currentHero == "Rain"){
             if(isRJustDown){
-                const cloud = new Cloud(this.scene, this.x, this.y - 50);
-                this.clouds.add(cloud); 
+                if(isOnFloor){
+                    this.anims.play(this.animsPlayer[this.currentHeroIndex].cast); 
+                    this.scene.time.delayedCall(550, () => {
+                        const cloud = new Cloud(this.scene, this.x, this.y - 18, this.flipX); 
+                        this.clouds.add(cloud);
+                    });
+                }else{
+                    const cloud = new Cloud(this.scene, this.x, this.y - 30, this.flipX); 
+                    this.clouds.add(cloud);
+                }
+                
+                 
             }
         }
 
@@ -328,13 +497,14 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         if(this.currentHero == "Wind"){
             if(isRJustDown){
                 this.toggleWind(this.dir);  
+                this.anims.play(this.animsPlayer[this.currentHeroIndex].cast);  
             }
         }
 
         if(this.scene.windActive && this.isHovering){
             this.body.setMaxVelocityY(20); 
         }else{
-            this.body.setMaxVelocityY(500); 
+            this.body.setMaxVelocityY(250); 
         }
 
         //  if(isSpaceJustDown ){
@@ -351,6 +521,30 @@ class Player extends Phaser.Physics.Arcade.Sprite{
               currentScene : this.scene.sceneName,
               listHeroes : this.listeHeros}); 
             this.scene.scene.pause();
+        }
+
+        //Animations en fonction du déplacement
+
+        if(this.anims.isPlaying && (this.anims.getName() == "cast_sun"
+        || this.anims.getName() == "jump_sun" 
+        || this.anims.getName() == "jump_rain"
+        || this.anims.getName() == "jump_wind"
+        || this.anims.getName() == "cast_rain"
+        || this.anims.getName() == "cast_wind"
+        || this.anims.getName() == "dash_wind")){
+            return; 
+        }
+     
+        if(this.body.velocity.y == 0 || isOnFloor){
+            if(this.body.velocity.x != 0){
+                if(!this.auraBox.active){
+                    this.play(this.animsPlayer[this.currentHeroIndex].run, true); 
+                }
+            }else{
+                if(!this.auraBox.active){ // Joue idle que si Sun est pas entrain de cast
+                    this.play(this.animsPlayer[this.currentHeroIndex].idle, true);
+                }   
+            }
         }
 
     }
@@ -447,14 +641,15 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     getDragged(caster, player){
        player.cantMove = true;
-       player.scene.tweens.add({
-            targets: player,
-            x: caster.x,
-            // y: caster.y,
-            duration: 800,
-            ease: 'Power2',
+       player.scene.physics.moveToObject(player, caster, 100); 
+    //    player.scene.tweens.add({
+    //         targets: player,
+    //         x: caster.x,
+    //         // y: caster.y,
+    //         duration: 800,
+    //         ease: 'Power2',
              
-        });
+    //     });
        setTimeout(() => {
         player.cantMove = false;
        }, 50);

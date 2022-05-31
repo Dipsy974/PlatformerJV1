@@ -21,6 +21,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
         this.speed = 60;
         this.active = false; 
         this.body.allowGravity = false; 
+        this.moving = false; 
 
         //Animations
         this.scene.anims.create({
@@ -29,11 +30,18 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
             frameRate: 12,
         })
         this.scene.anims.create({
-            key: "moving_platform",
-            frames: this.scene.anims.generateFrameNumbers("platform", {start: 1, end: 5}),
+            key: "activating_platform",
+            frames: this.scene.anims.generateFrameNumbers("platform", {start: 1, end: 3}),
             frameRate: 10,
+
+        });
+        this.scene.anims.create({
+            key: "moving_platform",
+            frames: this.scene.anims.generateFrameNumbers("platform", {start: 4, end: 7}),
+            frameRate: 8,
             repeat : -1
         });
+
 
     }
 
@@ -45,7 +53,16 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
     update(time, delta){
         
         if(this.active){
-            this.anims.play("moving_platform", true); 
+
+            if(!this.moving){
+                this.anims.play("activating_platform", true);
+                this.on('animationcomplete', () => {  
+                    this.anims.play("moving_platform", true);    
+                });
+            }
+        
+            this.moving = true; 
+            
             if(this.dir == "left"){
                 this.setVelocityX(-this.speed); 
             }else{
@@ -60,6 +77,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
         }else{
             this.anims.play("not_moving_platform"); 
             this.setVelocityX(0);
+            this.moving = false; 
         }
 
         if(this.body.touching.none){

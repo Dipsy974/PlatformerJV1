@@ -35,6 +35,9 @@ class Play extends Phaser.Scene{
         this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
 
+        // this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-3); 
+
+
         //Creation de la scene : map + layers
         const map = this.createMap();  
         const layers = this.createLayers(map); 
@@ -118,12 +121,12 @@ class Play extends Phaser.Scene{
         //ENVIRONNEMENT DE TEST
         //let { width, height } = this.sys.game.canvas;
     
-        for(var i = 0; i < this.MAP_WIDTH; i = i + 16){
-            this.add.line(0, 0, i, 0, i, this.MAP_HEIGHT, 0x00ff00, 0.1).setOrigin(0); 
-        }
-        for(var y = 0; y < this.MAP_HEIGHT; y = y + 16){
-            this.add.line(0, 0, 0, y, this.MAP_WIDTH, y, 0x00ff00, 0.1).setOrigin(0); 
-        }
+        // for(var i = 0; i < this.MAP_WIDTH; i = i + 16){
+        //     this.add.line(0, 0, i, 0, i, this.MAP_HEIGHT, 0x00ff00, 0.1).setOrigin(0); 
+        // }
+        // for(var y = 0; y < this.MAP_HEIGHT; y = y + 16){
+        //     this.add.line(0, 0, 0, y, this.MAP_WIDTH, y, 0x00ff00, 0.1).setOrigin(0); 
+        // }
 
         this.playerHV = this.add.text(470, 270,  ";" ).setScrollFactor(0); 
         this.currentPlayer = this.add.text(520, 270,  ";" ).setScrollFactor(0); 

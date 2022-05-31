@@ -69,9 +69,10 @@ class Caster extends Enemy{
         tornado.setVelocityX(this.tornadoVelocity); 
         tornado.setDepth(0); 
         this.scene.physics.add.overlap(tornado, this.scene.player, this.scene.player.getDragged); 
-        setTimeout(() => {
-            tornado.destroy(); 
-        }, this.tornadoLifespan);
+       
+        this.scene.time.delayedCall(this.tornadoLifespan, () => {
+            tornado.destroy();
+        });
       
     }
 

@@ -21,11 +21,21 @@ class Preload extends Phaser.Scene{
         this.load.spritesheet("projectile_impact", "/assets/player/projectile_impact.png",
         {frameWidth: 16, frameHeight: 16});
 
+        //PRELOAD JOUEUR
+        this.load.spritesheet("sun_spritesheet", "/assets/player/sun_spritesheet.png",
+        {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("rain_spritesheet", "/assets/player/rain_spritesheet.png",
+        {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("wind_spritesheet", "/assets/player/wind_spritesheet.png",
+        {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("beam_sun", "/assets/player/beam_sun.png",
+        {frameWidth: 16, frameHeight: 8});
+        this.load.image("wind_dash", "/assets/player/wind_dash.png" )
+
 
         //PRELOAD DIVERS
         this.load.image("plant", "/assets/plant.png");
-        this.load.image("plant_platform", "/assets/plant_platform.png"); 
-        this.load.image("cloud", "/assets/cloud.png");
+        this.load.image("cloud", "/assets/player/cloud_rain.png");
         this.load.image("drop", "/assets/drop.png");
         this.load.image("fire", "/assets/fire.png");
         this.load.image("smoke", "/assets/smoke.png");
@@ -39,12 +49,19 @@ class Preload extends Phaser.Scene{
         this.load.image("choose_wind", "/assets/choose_wind.png");
         this.load.image("choose_screen", "/assets/chooseScreen.png");
         this.load.image("hpUI", "/assets/ui_life.png");
+        this.load.image("bg", "/assets/bg_tempo.png"); 
 
 
-        this.load.spritesheet("platform", "/assets/platform.png",
-        {frameWidth: 32, frameHeight: 8});
-        this.load.spritesheet("growing_plant", "/assets/growing_plant.png",
+        this.load.spritesheet("platform", "/assets/objects/platform.png",
+        {frameWidth: 41, frameHeight: 13});
+        this.load.spritesheet("growing_plant", "/assets/objects/growing_plant2.png",
         {frameWidth: 16, frameHeight: 16});
+        this.load.spritesheet("plant_platform", "/assets/objects/plant_platform_spritesheet.png",
+        {frameWidth: 60, frameHeight: 21});
+
+
+        this.load.image("beam_particles", "/assets/beam_particles.png");
+        this.load.image("light_particles", "/assets/light_particles.png");
 
         //PRELOAD ENNEMIS
         this.load.spritesheet("enemy_run", "/assets/enemy/enemy01_run.png",

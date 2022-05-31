@@ -40,8 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":803.03,
-                 "y":531.667
+                 "x":344.03,
+                 "y":554.667
                 }, 
                 {
                  "height":0,
@@ -314,6 +314,34 @@
                  "width":0,
                  "x":312,
                  "y":457
+                }, 
+                {
+                 "height":0,
+                 "id":67,
+                 "name":"Platform",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"dir",
+                         "type":"string",
+                         "value":"right"
+                        }, 
+                        {
+                         "name":"maxX",
+                         "type":"float",
+                         "value":500
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"float",
+                         "value":300
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":312,
+                 "y":401
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -428,7 +456,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":67,
+ "nextobjectid":68,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

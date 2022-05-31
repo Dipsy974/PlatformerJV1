@@ -9,7 +9,7 @@ import Scene02 from '/src/scenes/Scene_02.js';
 
 const WIDTH = 896;
 const HEIGHT = 448;
-const ZOOM_FACTOR = 2; 
+const ZOOM_FACTOR = 2.5; 
 
 const SHARED_CONFIG = {
   width: WIDTH,

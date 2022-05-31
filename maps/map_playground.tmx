@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="67">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="68">
  <editorsettings>
   <export target="map_playground.json" format="json"/>
  </editorsettings>
@@ -95,7 +95,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="player_points">
-  <object id="15" name="Spawn" x="803.03" y="531.667">
+  <object id="15" name="Spawn" x="344.03" y="554.667">
    <point/>
   </object>
   <object id="2" name="End" x="926" y="200.667">
@@ -167,6 +167,14 @@
    <point/>
   </object>
   <object id="41" name="Platform" x="312" y="457">
+   <properties>
+    <property name="dir" value="right"/>
+    <property name="maxX" type="float" value="500"/>
+    <property name="minX" type="float" value="300"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="67" name="Platform" x="312" y="401">
    <properties>
     <property name="dir" value="right"/>
     <property name="maxX" type="float" value="500"/>

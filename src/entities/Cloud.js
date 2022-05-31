@@ -1,6 +1,6 @@
 class Cloud extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, x, y){
+    constructor(scene, x, y, flip){
         super(scene, x,y, "cloud"); 
         scene.add.existing(this); //Ajoute l'objet à la scène 
         scene.physics.add.existing(this); //Donne un physic body à l'objet
@@ -8,6 +8,9 @@ class Cloud extends Phaser.Physics.Arcade.Sprite{
         this.init(); 
         this.initEvents(); 
 
+        if(flip){
+            this.setFlipX(true); 
+        }
     }
 
     init(){
@@ -24,8 +27,9 @@ class Cloud extends Phaser.Physics.Arcade.Sprite{
             y: this.y + this.height/4,
             lifespan: 2000,
             speedY: { min: 60, max: 100 },
-            scale: { start: 0.4, end: 0.3 },
+            scale: { start: 0.7, end: 0.6 },
             quantity: 1,
+            frequency : 60, 
             
         });
         this.particles.setDepth(-1); 
