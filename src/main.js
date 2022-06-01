@@ -7,8 +7,8 @@ import UIScene from '/src/scenes/UIScene.js';
 import Scene02 from '/src/scenes/Scene_02.js';
 
 
-const WIDTH = 896;
-const HEIGHT = 448;
+const WIDTH = 1280;
+const HEIGHT = 768;
 const ZOOM_FACTOR = 2.5; 
 
 const SHARED_CONFIG = {

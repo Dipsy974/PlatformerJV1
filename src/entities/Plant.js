@@ -65,7 +65,7 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
         newStem.anims.play("growing"); 
 
         newStem.on(Phaser.Animations.Events.ANIMATION_UPDATE, function (anim, frame, gameObject) {
-
+            
             if(frame.index == 4){
                 if(this.size < this.maxSize){
                     this.addNewStem(newStem);

@@ -1,7 +1,7 @@
 export const getDialogs = () => {
     const dialogs_data = [];
 
-    dialogs_data[0] = [{name : "Sun", avatar: "dialog_sun",words: ["Olala, euuh", "C'est trop haut"]},
+    dialogs_data[0] = [{name : "Sun", avatar: "dialog_sun", words: ["Olala, euuh", "C'est trop haut"]},
     {name : "Rain", avatar:"dialog_rain", words: ["Vazy je t'aide", "Je sais faire pousser de la beuh"]},
     ]; 
 

@@ -4,9 +4,10 @@ import Enemy from "./Enemy.js";
 //Classe ProtectedEnemy : comportement Ennemi 
 class ProtectedEnemy extends Enemy{
 
-    constructor(scene, x, y){
-        super(scene, x,y, "enemy4_run"); 
-        this.init(); 
+    constructor(scene, x, y, maxX, minX){
+        super(scene, x,y, "enemy_ent"); 
+        this.minX = minX;
+        this.maxX = maxX; 
     }
 
     init(){
@@ -19,26 +20,41 @@ class ProtectedEnemy extends Enemy{
 
 
         //Physique avec le monde
-        this.setSize(22,26);
-        this.setOffset(3,6); 
+        this.setSize(18,34);
+        this.setOffset(11,7); 
         this.setVelocityX(this.speed); 
+
+       
  
         
         
         //Animations
         this.scene.anims.create({
-            key: "enemy3_idle",
-            frames: this.scene.anims.generateFrameNumbers("enemy3_idle", {start: 0, end: 1}),
-            frameRate: 10,
+            key: "enemy_ent_walk",
+            frames: this.scene.anims.generateFrameNumbers("enemy_ent", {start: 0, end: 3}),
+            frameRate: 3,
             repeat: -1
         });
 
         this.scene.anims.create({
-            key: "enemy4_run",
-            frames: this.scene.anims.generateFrameNumbers("enemy4_run", {start: 0, end: 1}),
-            frameRate: 10,
-            repeat: -1
+            key: "enemy_ent_leafs",
+            frames: [{ key: 'leafs_ent', frame: 0 }],
+            frameRate: 12,
+        })
+        this.scene.anims.create({
+            key: "enemy_ent_leafs_reflect",
+            frames: this.scene.anims.generateFrameNumbers("leafs_ent", {start: 1, end: 5}),
+            frameRate: 16,
         });
+        this.scene.anims.create({
+            key: "enemy_ent_leafs_lose",
+            frames: this.scene.anims.generateFrameNumbers("leafs_ent", {start: 6, end: 8}),
+            frameRate: 10,
+            repeat : -1, 
+        });
+
+
+        this.protection = this.scene.physics.add.sprite(this.x, this.y, "leafs_ent"); 
 
 
         this.protectionParticles = this.scene.add.particles('leaf');
@@ -48,12 +64,22 @@ class ProtectedEnemy extends Enemy{
             y: this.y,
             speed: { min: -200, max: 200 },
             angle: { min: 0, max: 360 }, 
+            rotate : {min: 0, max: 90},
             lifespan: 300,
-            scale: { start: 2, end: 1 },
+            scale: { start: 1, end: 0.5 },
             quantity : 10, 
             frequency: 10, 
             on:  false, 
               
+        });
+
+        var tween = this.scene.tweens.add({
+            targets: this.protection,
+            y: this.y - 12,
+            ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+            duration: 1000,
+            repeat: -1,            // -1: infinity
+            yoyo: true
         });
     }
 
@@ -61,11 +87,24 @@ class ProtectedEnemy extends Enemy{
         super.update(time,delta);
         this.patrol(time,delta); 
         if(!this.active){return ;}
-        if(this.protected){
-            this.play("enemy4_run", true); 
-        }
+        this.anims.play("enemy_ent_walk", true); 
+        
+       
+        
 
        this.protectionEmitter.setPosition(this.x, this.y); 
+
+       if(this.protection.active){
+        this.protection.x = this.x;
+
+        if(this.protection.anims.isPlaying && (this.protection.anims.getName() == "enemy_ent_leafs_reflect"
+        || this.protection.anims.getName() == "enemy_ent_leafs_lose" )){
+            return; 
+        }
+        this.protection.anims.play("enemy_ent_leafs", true); 
+        
+
+       }
    
         
     }
@@ -76,32 +115,30 @@ class ProtectedEnemy extends Enemy{
             return; 
         }
 
-        //Raycasting pour changer direction ennemi quand près d'un rebord 
-        const {ray, isHitting} = this.raycast(this.body, this.platformCollidersLayer , 30, 2, 1); 
-        this.rayGraphics.clear(); 
-        this.rayGraphics.strokeLineShape(ray); 
-
-        //Threshold de 100ms pour ne pas répéter l'action Turn plein de fois d'affilé
-        if(!isHitting && this.timeFromLastTurn + 1000 < time){
-            this.setFlipX(!this.flipX); 
-            this.setVelocityX(this.speed = -this.speed); 
-            this.timeFromLastTurn = time; 
+        if(this.x <= this.minX){
+            this.setFlipX(!this.flipX);
+            this.setVelocityX(this.speed);
+        }else if(this.x >= this.maxX){
+            this.setFlipX(!this.flipX);
+            this.setVelocityX(-this.speed);
         }
     }
 
     getHit(projectile){
-   
-
-        if(!this.protected){
+        if(this.protected){
+            this.protection.anims.play("enemy_ent_leafs_reflect", true); 
+        }
+        else{
             super.getHit(projectile); 
         }
     }
 
     loseProtection(){
-        this.play("enemy3_idle", true); 
+        this.protection.anims.play("enemy_ent_leafs_lose", true); 
         this.protectionDuration -= 1; 
         if(this.protectionDuration <= 0){
             this.protected = false; 
+            this.protection.destroy(); 
             this.protectionEmitter.explode(); 
         }   
     }

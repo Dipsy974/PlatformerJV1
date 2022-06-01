@@ -4,30 +4,45 @@ import Enemy from "./Enemy.js";
 //Classe Tornado : comportement Ennemi 01 
 class Tornado extends Enemy{
 
-    constructor(scene, x, y){
-        super(scene, x,y, "enemy_run"); 
+    constructor(scene, x, y, maxX, minX){
+        super(scene, x,y, "enemy_sheep"); 
+        
+        this.minX = minX;
+        this.maxX = maxX; 
+
         this.init(); 
     }
 
     init(){
         super.init(); 
         //Variables entité
-        this.speed = 50; 
+        this.speed = 30; 
         this.setVelocityX(this.speed); 
 
 
         //Physique avec le monde
-        this.setSize(22,26);
-        this.setOffset(3,6); 
- 
-        
         
         //Animations
         this.scene.anims.create({
-            key: "enemy_run",
-            frames: this.scene.anims.generateFrameNumbers("enemy_run", {start: 0, end: 4}),
-            frameRate: 10,
+            key: "enemy_sheep_walk",
+            frames: this.scene.anims.generateFrameNumbers("enemy_sheep", {start: 0, end: 3}),
+            frameRate: 6,
             repeat: -1
+        });
+
+        this.explosionParticles = this.scene.add.particles('sheep_particles');
+        this.explosionEmitter = this.explosionParticles.createEmitter({
+            
+            x: this.x,
+            y: this.y,
+            speed: { min: -50, max: 50 },
+            angle: { min: 0, max: 360 }, 
+            lifespan: 300,
+            scale: { start: 2, end: 0.5 },
+            quantity : 10, 
+            frequency: 10, 
+            on:  false, 
+              
         });
     }
 
@@ -35,7 +50,8 @@ class Tornado extends Enemy{
         super.update(time,delta);
         this.patrol(time,delta); 
         if(!this.active){return ;}
-        this.play("enemy_run", true); 
+        this.play("enemy_sheep_walk", true); 
+        this.explosionEmitter.setPosition(this.x, this.y)
         
     }
 
@@ -45,16 +61,21 @@ class Tornado extends Enemy{
             return; 
         }
 
-        //Raycasting pour changer direction ennemi quand près d'un rebord 
-        const {ray, isHitting} = this.raycast(this.body, this.platformCollidersLayer , 30, 2, 1); 
-        this.rayGraphics.clear(); 
-        this.rayGraphics.strokeLineShape(ray); 
+        if(this.x <= this.minX){
+            this.setFlipX(!this.flipX);
+            this.setVelocityX(this.speed);
+        }else if(this.x >= this.maxX){
+            this.setFlipX(!this.flipX);
+            this.setVelocityX(-this.speed);
+        }
+    }
 
-        //Threshold de 100ms pour ne pas répéter l'action Turn plein de fois d'affilé
-        if(!isHitting && this.timeFromLastTurn + 1000 < time){
-            this.setFlipX(!this.flipX); 
-            this.setVelocityX(this.speed = -this.speed); 
-            this.timeFromLastTurn = time; 
+    getHit(projectile){
+        super.getHit(projectile);
+
+        if(this.hp <= 0){
+            //VISUAL EFFECT PARTICLES
+            this.explosionEmitter.explode(); 
         }
     }
 

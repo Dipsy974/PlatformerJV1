@@ -278,7 +278,7 @@ class Scene02 extends Phaser.Scene{
         layer.objects.forEach(spawn => {
             let enemy = null; 
             if(spawn.type == "Tornado"){
-                enemy = new Tornado(this,spawn.x, spawn.y);
+                enemy = new Tornado(this,spawn.x, spawn.y,  spawn.properties[0].value, spawn.properties[1].value );
                 
                 
             }else if(spawn.type == "Cloud"){
@@ -291,7 +291,7 @@ class Scene02 extends Phaser.Scene{
             }else if(spawn.type == "Caster"){
                 enemy = new Caster(this,spawn.x, spawn.y, spawn.properties[0].value);     
             }else if(spawn.type == "Protected"){
-                enemy = new ProtectedEnemy(this,spawn.x, spawn.y);    
+                enemy = new ProtectedEnemy(this,spawn.x, spawn.y,  spawn.properties[0].value, spawn.properties[1].value );    
             }  
 
             enemy.setPlatformColliders(platformsLayer); 

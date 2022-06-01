@@ -40,8 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":344.03,
-                 "y":554.667
+                 "x":613.03,
+                 "y":202.667
                 }, 
                 {
                  "height":0,
@@ -110,8 +110,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":659,
-                 "y":202
+                 "x":693,
+                 "y":586
                 }, 
                 {
                  "height":0,
@@ -169,6 +169,17 @@
                  "id":25,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":500
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":410
+                        }],
                  "rotation":0,
                  "type":"Tornado",
                  "visible":true,
@@ -237,16 +248,21 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"faceLeft",
-                         "type":"bool",
-                         "value":false
+                         "name":"maxX",
+                         "type":"int",
+                         "value":502
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":320
                         }],
                  "rotation":0,
                  "type":"Protected",
                  "visible":true,
                  "width":0,
-                 "x":420.667,
-                 "y":158
+                 "x":409.667,
+                 "y":150
                 }],
          "opacity":1,
          "type":"objectgroup",

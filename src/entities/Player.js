@@ -641,6 +641,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     getDragged(caster, player){
        player.cantMove = true;
+       player.setAlpha(0.5);
        player.scene.physics.moveToObject(player, caster, 100); 
     //    player.scene.tweens.add({
     //         targets: player,
@@ -652,6 +653,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     //     });
        setTimeout(() => {
         player.cantMove = false;
+        player.setAlpha(1);
        }, 50);
     }
 

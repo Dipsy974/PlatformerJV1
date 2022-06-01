@@ -62,6 +62,8 @@ class Preload extends Phaser.Scene{
 
         this.load.image("beam_particles", "/assets/beam_particles.png");
         this.load.image("light_particles", "/assets/light_particles.png");
+        this.load.image("sheep_particles", "/assets/sheep_particles.png");
+        this.load.image("harpy_particles", "/assets/harpy_particles.png");
 
         //PRELOAD ENNEMIS
         this.load.spritesheet("enemy_run", "/assets/enemy/enemy01_run.png",
@@ -78,6 +80,22 @@ class Preload extends Phaser.Scene{
 
         this.load.spritesheet("enemy4_run", "/assets/enemy/enemy04_run.png",
         {frameWidth: 16, frameHeight: 32});
+
+        //PRELOAD ENNEMIS
+        this.load.spritesheet("enemy_sheep", "/assets/enemy/enemy_sheep.png",
+        {frameWidth: 24, frameHeight: 16});
+
+        this.load.spritesheet("enemy_harpy", "/assets/enemy/enemy_harpy.png",
+        {frameWidth: 40, frameHeight: 40});
+
+        this.load.spritesheet("tornado_harpy", "/assets/enemy/tornado_harpy.png",
+        {frameWidth: 40, frameHeight: 40});
+
+        this.load.spritesheet("enemy_ent", "/assets/enemy/enemy_ent.png",
+        {frameWidth: 40, frameHeight: 40});
+        this.load.spritesheet("leafs_ent", "/assets/enemy/enemy_ent_leafs.png",
+        {frameWidth: 40, frameHeight: 40});
+
     }
 
     create(){

@@ -95,7 +95,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="player_points">
-  <object id="15" name="Spawn" x="344.03" y="554.667">
+  <object id="15" name="Spawn" x="613.03" y="202.667">
    <point/>
   </object>
   <object id="2" name="End" x="926" y="200.667">
@@ -116,7 +116,7 @@
    </properties>
    <point/>
   </object>
-  <object id="63" name="Dialog" x="659" y="202">
+  <object id="63" name="Dialog" x="693" y="586">
    <properties>
     <property name="Number" type="int" value="1"/>
    </properties>
@@ -133,6 +133,10 @@
  <objectgroup id="5" name="checkpoints"/>
  <objectgroup id="4" name="ennemies_points">
   <object id="25" name="Spawn" type="Tornado" x="457" y="519">
+   <properties>
+    <property name="maxX" type="int" value="500"/>
+    <property name="minX" type="int" value="410"/>
+   </properties>
    <point/>
   </object>
   <object id="26" name="Spawn" type="StaticCloud" x="550" y="510">
@@ -150,9 +154,10 @@
    </properties>
    <point/>
   </object>
-  <object id="60" name="Spawn" type="Protected" x="420.667" y="158">
+  <object id="60" name="Spawn" type="Protected" x="409.667" y="150">
    <properties>
-    <property name="faceLeft" type="bool" value="false"/>
+    <property name="maxX" type="int" value="502"/>
+    <property name="minX" type="int" value="320"/>
    </properties>
    <point/>
   </object>
