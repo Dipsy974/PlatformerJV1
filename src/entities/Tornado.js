@@ -18,6 +18,7 @@ class Tornado extends Enemy{
         //Variables entité
         this.speed = 30; 
         this.setVelocityX(this.speed); 
+        this.dir = "right"; 
 
 
         //Physique avec le monde
@@ -64,9 +65,17 @@ class Tornado extends Enemy{
         if(this.x <= this.minX){
             this.setFlipX(!this.flipX);
             this.setVelocityX(this.speed);
+            this.dir = "right"; 
         }else if(this.x >= this.maxX){
             this.setFlipX(!this.flipX);
             this.setVelocityX(-this.speed);
+            this.dir = "left"; 
+        }
+
+        if(this.dir == "right"){
+            this.setFlipX(false);
+        }else if(this.dir == "left"){
+            this.setFlipX(true); 
         }
     }
 

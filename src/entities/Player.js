@@ -285,7 +285,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.scene.tweens.addCounter({
                 from: 255,
                 to: 0,
-                duration: 50,
+                duration: 300,
                 onUpdate: function (tween)
                 {
                     const valueRB = Math.floor(tween.getValue());
@@ -296,7 +296,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             });
             // .setTintFill(0x62bf76)
         }
-
+   
         this.dashTrail.children.each(function(silouhette) {
             
             silouhette.alpha -= 0.05 ;
@@ -570,7 +570,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }else{
            this.activateWind(direction); 
         }
-        console.log(this.scene.windActive, " : ", this.scene.windVelocity)
+   
     }
 
     activateWind(direction){
@@ -608,9 +608,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }else{
             this.setVelocityX(this.bounceVelocity);
         }
-        setTimeout(() => {
-            this.setVelocityY(-this.bounceVelocity);
-        }, 50);
+        
+        this.setVelocityY(-this.bounceVelocity);
+
     }
 
     getHit(damages){
@@ -641,7 +641,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     getDragged(caster, player){
        player.cantMove = true;
-       player.setAlpha(0.5);
+       player.setAlpha(0.4);
        player.scene.physics.moveToObject(player, caster, 100); 
     //    player.scene.tweens.add({
     //         targets: player,

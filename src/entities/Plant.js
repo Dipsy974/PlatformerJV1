@@ -14,6 +14,8 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
     init(){
         this.size = 1;
         this.isGrowing = false; 
+
+        
       
         this.setOrigin(0);
         
@@ -29,8 +31,17 @@ class Plant extends Phaser.Physics.Arcade.Sprite{
             frames: this.scene.anims.generateFrameNumbers("plant_platform", {start: 0, end: 6}),
             frameRate: 10,
         });
+        this.scene.anims.create({
+            key: "plant_idle",
+            frames: this.scene.anims.generateFrameNumbers("growing_plant", {start: 5, end: 9}),
+            frameRate: 10,
+            repeatDelay: 1000, 
+            repeat: -1
+        });
 
 
+
+        this.anims.play("plant_idle"); 
 
     }
 

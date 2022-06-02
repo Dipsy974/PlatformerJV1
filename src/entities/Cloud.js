@@ -15,6 +15,8 @@ class Cloud extends Phaser.Physics.Arcade.Sprite{
 
     init(){
 
+        this.setDepth(2); 
+
         this.lifeSpan = 200; 
 
         this.particles = this.scene.add.particles('drop');

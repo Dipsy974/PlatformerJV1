@@ -6,7 +6,7 @@ import collidable from "../mixins/collidable.js";
 class TCloud extends Enemy{
 
     constructor(scene, x, y){
-        super(scene, x,y, "enemy2_run"); 
+        super(scene, x,y, "enemy_cloud"); 
         this.init(); 
     }
 
@@ -32,10 +32,9 @@ class TCloud extends Enemy{
         Object.assign(this.detectionBox, collidable); 
 
 
-        this.attackBox = this.scene.physics.add.sprite(this.x, this.y + this.height*1.4, 'eclair')
+        this.attackBox = this.scene.physics.add.sprite(this.x, this.y + this.height + 8, 'eclair')
             // .setOrigin(0,0)
             .setAlpha(0)
-            .setScale(1.5)
             .setSize(this.width/2, 2)
             .setOffset(0, 0); 
 
@@ -55,15 +54,16 @@ class TCloud extends Enemy{
 
         //Physique avec le monde
         this.body.setGravityY(this.gravity); 
-        this.setSize(30,26);
-        this.setOffset(1,6); 
+        this.setSize(32,22);
+        this.setOffset(4,5); 
+        this.setDepth(2); 
  
 
         
         //Animations
         this.scene.anims.create({
-            key: "enemy2_run",
-            frames: this.scene.anims.generateFrameNumbers("enemy2_run", {start: 0, end: 1}),
+            key: "enemy_cloud_idle",
+            frames: this.scene.anims.generateFrameNumbers("enemy_cloud", {start: 0, end: 3}),
             frameRate: 7,
             repeat: -1
         });
@@ -75,9 +75,9 @@ class TCloud extends Enemy{
             repeat : 0
         });
         this.scene.anims.create({
-            key: "enemy2_cast",
-            frames: this.scene.anims.generateFrameNumbers("enemy2_run", {start: 2, end: 5}),
-            frameRate: 5,
+            key: "enemy_cloud_cast",
+            frames: this.scene.anims.generateFrameNumbers("enemy_cloud", {start: 4, end: 12}),
+            frameRate: 10,
             repeat : 0
         });
     }
@@ -86,7 +86,7 @@ class TCloud extends Enemy{
         super.update(time,delta);
         if(!this.active){return ;}
         if(this.currentState != "CASTING"){
-            this.play("enemy2_run", true); 
+            this.play("enemy_cloud_idle", true); 
         }
 
         
@@ -99,13 +99,13 @@ class TCloud extends Enemy{
           
         }
 
-        if(this.attackDelay <= 40 && this.attackDelay > 10){
+        if(this.attackDelay <= 40 && this.attackDelay > 4){
             this.currentState = "CASTING";
             this.followTarget(); 
-            this.play("enemy2_cast", true); 
+            this.play("enemy_cloud_cast", true); 
         }
 
-        if(this.attackDelay <= 10 ){
+        if(this.attackDelay <= 4 ){
             this.attackDelay -= 1; 
         }
        
@@ -116,15 +116,26 @@ class TCloud extends Enemy{
             this.attackDelay = this.maxAttackDelay; 
             this.currentState = "ATTACKING"; 
             // Enlève l'animation de l'éclair
-            setTimeout(() => {
-                this.attackBox.setAlpha(0);
-                this.attackBox.setSize(this.width/2, 2); 
-                this.attackBox.setOffset(0, 0); 
-            }, 300);
+            this.scene.time.delayedCall(300, () => {
+                if(this.active){
+                    this.attackBox.setAlpha(0);
+                    this.attackBox.setSize(this.width/2, 2); 
+                    this.attackBox.setOffset(0, 0); 
+                }
+                
+            });
+            // setTimeout(() => {
+            //     this.attackBox.setAlpha(0);
+            //     this.attackBox.setSize(this.width/2, 2); 
+            //     this.attackBox.setOffset(0, 0); 
+            // }, 300);
             // Met le nuage en état PASSIF
-            setTimeout(() => {
-                this.currentState = "PASSIF"; 
-            }, 800);
+            this.scene.time.delayedCall(800, () => {
+                this.currentState = "PASSIF";  
+            });
+            // setTimeout(() => {
+            //     this.currentState = "PASSIF"; 
+            // }, 800);
                  
         }
 

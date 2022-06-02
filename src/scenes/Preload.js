@@ -50,6 +50,7 @@ class Preload extends Phaser.Scene{
         this.load.image("choose_screen", "/assets/chooseScreen.png");
         this.load.image("hpUI", "/assets/ui_life.png");
         this.load.image("bg", "/assets/bg_tempo.png"); 
+        this.load.image("fg", "/assets/fg_test.png"); 
 
 
         this.load.spritesheet("platform", "/assets/objects/platform.png",
@@ -95,6 +96,12 @@ class Preload extends Phaser.Scene{
         {frameWidth: 40, frameHeight: 40});
         this.load.spritesheet("leafs_ent", "/assets/enemy/enemy_ent_leafs.png",
         {frameWidth: 40, frameHeight: 40});
+
+        this.load.spritesheet("enemy_cloud", "/assets/enemy/enemy_cloud.png",
+        {frameWidth: 40, frameHeight: 30});
+
+        this.load.spritesheet("enemy_cloud_thunder", "/assets/enemy/enemy_cloud_thunder.png",
+        {frameWidth: 16, frameHeight: 64});
 
     }
 

@@ -5,7 +5,7 @@ class WindParticle extends Phaser.GameObjects.Particles.Particle {
         super(emitter);
 
         this.depth = 0.6 + Math.random() * 2;
-        this.scaleX = this.depth ; 
+        this.scaleX = this.depth * 0.8 ; 
         this.speed = this.depth * this.emitter.scene.maxWindVelocity * 3; 
 
     }
@@ -13,8 +13,8 @@ class WindParticle extends Phaser.GameObjects.Particles.Particle {
     update (delta, step, processors) {
         super.update(delta, step, processors);
         
-            this.scaleX = this.depth ; 
-            this.scaleY = this.depth ; 
+            this.scaleX = this.depth * 0.7  ; 
+            this.scaleY = this.depth * 0.7 ; 
             this.speed = this.depth * this.emitter.scene.maxWindVelocity * 3; 
             
 

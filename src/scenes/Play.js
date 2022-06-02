@@ -35,7 +35,8 @@ class Play extends Phaser.Scene{
         this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
 
-        // this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-3); 
+        this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-4); 
+        
 
 
         //Creation de la scene : map + layers
@@ -103,6 +104,7 @@ class Play extends Phaser.Scene{
             scale: { start: 0.8, end: 1 },
             particleClass: WindParticle, 
             quantity : 1, 
+            rotate: {min: -20, max : 20}, 
             frequency: 50, 
             follow : this.player,
             followOffset: {x: -this.SCREEN_WIDTH/2/this.zoom , y: -this.SCREEN_HEIGHT/2/this.zoom },
@@ -189,7 +191,6 @@ class Play extends Phaser.Scene{
     onWindOverlap(enemy, wind){
         
         if(this.windActive && enemy.protected){
-            console.log("efoigzoif")
             enemy.loseProtection(); 
         }
     }
@@ -208,8 +209,12 @@ class Play extends Phaser.Scene{
     //Creation des layers
     createLayers(map){
         const tileset = map.getTileset("tileset"); //Accède au tileset de la tilemap
+        const layer_decor_bg = map.createLayer("decor_bg", tileset);
+        layer_decor_bg.setDepth(-2); 
         const layer_ground = map.createLayer("ground", tileset); //Un layer peut etre fait avec plusieurs tileset
         const layer_decor = map.createLayer("decor", tileset);
+        const layer_decor_fg = map.createLayer("decor_fg", tileset);
+        layer_decor_fg.setDepth(4); 
         const playerPoints = map.getObjectLayer('player_points');
         
         const enemiesSpawns = map.getObjectLayer("ennemies_points");
@@ -226,7 +231,7 @@ class Play extends Phaser.Scene{
 
         layer_ground.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
+        return {layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
     }
 
     createPlayer(playerPoints){
@@ -406,6 +411,7 @@ class Play extends Phaser.Scene{
         dialogPoint.destroy(); 
     }
 
+   
     update(){
         //ENVIRONNEMENT DE TEST
         //Position joueur en tiles

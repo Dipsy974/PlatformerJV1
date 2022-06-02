@@ -17,6 +17,7 @@ class ProtectedEnemy extends Enemy{
         this.protected = true; 
         this.protectionDuration = 100; 
         this.hp = 2; 
+        this.dir = "right"; 
 
 
         //Physique avec le monde
@@ -45,6 +46,7 @@ class ProtectedEnemy extends Enemy{
             key: "enemy_ent_leafs_reflect",
             frames: this.scene.anims.generateFrameNumbers("leafs_ent", {start: 1, end: 5}),
             frameRate: 16,
+            repeat: 1
         });
         this.scene.anims.create({
             key: "enemy_ent_leafs_lose",
@@ -116,11 +118,17 @@ class ProtectedEnemy extends Enemy{
         }
 
         if(this.x <= this.minX){
-            this.setFlipX(!this.flipX);
             this.setVelocityX(this.speed);
+            this.dir = "right";
         }else if(this.x >= this.maxX){
-            this.setFlipX(!this.flipX);
             this.setVelocityX(-this.speed);
+            this.dir = "left"; 
+        }
+
+        if(this.dir == "right"){
+            this.setFlipX(false);
+        }else if(this.dir == "left"){
+            this.setFlipX(true); 
         }
     }
 

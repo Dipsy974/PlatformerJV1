@@ -54,7 +54,6 @@ class Projectile extends Phaser.Physics.Arcade.Sprite{
 
     preUpdate(time, delta){
         super.preUpdate(time,delta); 
-        console.log(this.body.velocity.x)
         this.traveledDistance += this.body.deltaAbsX();
         if(this.traveledDistance >= this.maxDistance){
             this.particleEmmiter.stop(); 
