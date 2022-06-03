@@ -205,6 +205,8 @@ class Scene02 extends Phaser.Scene{
     //Creation des layers
     createLayers(map){
         const tileset = map.getTileset("tileset"); //Accède au tileset de la tilemap
+        const layer_decor_bg_loin = map.createLayer("decor_bg_loin", tileset);
+        layer_decor_bg_loin.setDepth(-4);  
         const layer_decor_bg = map.createLayer("decor_bg", tileset);
         const layer_ground = map.createLayer("ground", tileset); //Un layer peut etre fait avec plusieurs tileset
         const layer_decor = map.createLayer("decor", tileset);
@@ -225,7 +227,7 @@ class Scene02 extends Phaser.Scene{
 
         layer_ground.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
+        return {layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
     }
 
     createPlayer(playerPoints){

@@ -50,6 +50,9 @@ class Preload extends Phaser.Scene{
         this.load.image("choose_screen", "/assets/chooseScreen.png");
         this.load.image("hpUI", "/assets/ui_life.png");
         this.load.image("bg", "/assets/bg_tempo.png"); 
+        this.load.image("bg_test", "/assets/bg_test.png"); 
+        this.load.image("bg_test2", "/assets/bg_test_2.png"); 
+        this.load.image("bg_test3", "/assets/bg_test_3.png"); 
         this.load.image("fg", "/assets/fg_test.png"); 
 
 

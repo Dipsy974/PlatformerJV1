@@ -35,12 +35,14 @@ class Play extends Phaser.Scene{
         this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
 
-        this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-4); 
+        this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-10); 
+   
         
 
 
         //Creation de la scene : map + layers
         const map = this.createMap();  
+        const bg = this.createBG(map); 
         const layers = this.createLayers(map); 
         const playerPoints = this.getPlayerPoints(layers.playerPoints); 
         const endZone = this.createEnd(playerPoints.end); 
@@ -206,9 +208,31 @@ class Play extends Phaser.Scene{
         return map; 
     }
 
+    createBG(map){
+        const bgObject = map.getObjectLayer("bg").objects[0];
+        this.add.tileSprite(bgObject.x, bgObject.y, this.config.width, bgObject.height, "bg_test")
+        .setDepth(-8)
+        .setOrigin(0,1)
+        .setScrollFactor(0.3, 0.6); 
+
+        const bgObject2 = map.getObjectLayer("bg").objects[1];
+        this.add.tileSprite(bgObject2.x, bgObject2.y, this.config.width, bgObject2.height, "bg_test2")
+        .setDepth(-7)
+        .setOrigin(0,1)
+        .setScrollFactor(0.5, 0.8); 
+
+        const bgObject3 = map.getObjectLayer("bg").objects[2];
+        this.add.tileSprite(bgObject3.x, bgObject3.y, this.config.width, bgObject2.height, "bg_test3")
+        .setDepth(-9)
+        .setOrigin(0,1)
+        .setScrollFactor(0.1, 0.4); 
+    }
+
     //Creation des layers
     createLayers(map){
         const tileset = map.getTileset("tileset"); //Accède au tileset de la tilemap
+        const layer_decor_bg_loin = map.createLayer("decor_bg_loin", tileset);
+        layer_decor_bg_loin.setDepth(-4); 
         const layer_decor_bg = map.createLayer("decor_bg", tileset);
         layer_decor_bg.setDepth(-2); 
         const layer_ground = map.createLayer("ground", tileset); //Un layer peut etre fait avec plusieurs tileset
@@ -231,7 +255,7 @@ class Play extends Phaser.Scene{
 
         layer_ground.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
+        return {layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
     }
 
     createPlayer(playerPoints){
