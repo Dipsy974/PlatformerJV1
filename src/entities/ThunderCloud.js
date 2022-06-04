@@ -157,20 +157,20 @@ class TCloud extends Enemy{
     }
 
     getHit(){
-        this.hp -= 1; 
-        this.playDamageTween(); 
-        this.scene.time.delayedCall(500, () => {
-            this.clearTint(); 
-        });
+        // this.hp -= 1; 
+        // this.playDamageTween(); 
+        // this.scene.time.delayedCall(500, () => {
+        //     this.clearTint(); 
+        // });
 
-        if(this.hp <= 0){
-            this.rayGraphics.destroy(); 
-            this.attackBox.destroy();
-            this.detectionBox.destroy(); 
-            this.destroy();
+        // if(this.hp <= 0){
+        //     this.rayGraphics.destroy(); 
+        //     this.attackBox.destroy();
+        //     this.detectionBox.destroy(); 
+        //     this.destroy();
 
-            //VISUAL EFFECT PARTICLES
-        }
+        //     //VISUAL EFFECT PARTICLES
+        // }
     }
 
     followTarget(){

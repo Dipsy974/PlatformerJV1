@@ -56,6 +56,7 @@ class Level06 extends Phaser.Scene{
        
         //ajout colliders au joueur
         this.player.addCollider(layers.layer_ground); 
+        this.player.addCollider(layers.layer_brambles, this.player.getHit); 
         this.player.addOverlap(endZone,this.endLevel); 
         this.player.addOverlap(vide, this.player.respawn); 
         this.physics.add.overlap(this.player, dialogsPoints, this.startDialog, null, this); 
@@ -253,11 +254,14 @@ class Level06 extends Phaser.Scene{
 
         const layer_fires = map.getObjectLayer("fire_points"); 
 
+        const layer_brambles = map.createLayer("brambles", tileset)
+
         const dialog_points = map.getObjectLayer("dialogs_points"); 
 
         layer_ground.setCollisionByExclusion(-1, true); 
+        layer_brambles.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
+        return {layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points, layer_brambles}; 
     }
 
     createPlayer(playerPoints){
@@ -327,7 +331,7 @@ class Level06 extends Phaser.Scene{
                 enemy.attackBox.addOverlap(this.player, this.onPlayerCollision);     
             }else if(spawn.type == "StaticCloud"){
                 enemy = new STCloud(this,spawn.x, spawn.y);    
-                enemy.attackBox.addOverlap(this.player, this.onPlayerCollision);     
+                enemy.attackBox.addOverlap(this.player, this.onPlayerCollision);    
             }else if(spawn.type == "Caster"){
                 enemy = new Caster(this,spawn.x, spawn.y, spawn.properties[0].value, spawn.properties[1].value, spawn.properties[2].value);     
             }else if(spawn.type == "Protected"){
@@ -395,7 +399,7 @@ class Level06 extends Phaser.Scene{
     }
 
     checkPlayerBurned(particle){
-        if((particle.x > this.player.x- this.player.width/2 && particle.x < this.player.x + this.player.width/2) && (particle.y > this.player.y && particle.y < this.player.y + this.player.height/2) ){
+        if((particle.x > this.player.x- 8 && particle.x < this.player.x + 8) && (particle.y > this.player.y - 8 && particle.y < this.player.y + 8) ){
             this.player.getHit(10); 
         }
     }
