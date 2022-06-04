@@ -503,7 +503,7 @@
                         {
                          "name":"dir",
                          "type":"string",
-                         "value":"left"
+                         "value":"right"
                         }, 
                         {
                          "name":"maxX",

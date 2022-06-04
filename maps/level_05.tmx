@@ -210,7 +210,7 @@
   </object>
   <object id="96" name="End" x="1656.33" y="373.667">
    <properties>
-    <property name="NextScene" value="Scene02"/>
+    <property name="NextScene" value="Level06"/>
    </properties>
    <point/>
   </object>

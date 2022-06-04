@@ -295,7 +295,7 @@
    </properties>
    <point/>
   </object>
-  <object id="126" name="Platform" x="1308.5" y="130">
+  <object id="126" name="Platform" x="1298.98" y="127.939">
    <properties>
     <property name="dir" value="left"/>
     <property name="maxX" type="float" value="1430"/>
