@@ -12,10 +12,10 @@ import WindParticle from "../entities/WindParticles.js";
 
 
 
-class Play extends Phaser.Scene{
+class Level03 extends Phaser.Scene{
 
     constructor(config){
-        super("PlayScene");
+        super("Level03");
         this.config = config;  
     }
     
@@ -29,8 +29,8 @@ class Play extends Phaser.Scene{
         //Dimensions de la scène actuelle (déterminée dans Tiled)
         this.SCREEN_WIDTH = this.config.width;
         this.SCREEN_HEIGHT = this.config.height;
-        this.MAP_WIDTH = 960;
-        this.MAP_HEIGHT = 640; 
+        this.MAP_WIDTH = 1120;
+        this.MAP_HEIGHT = 688; 
         this.zoom = this.config.zoomFactor; 
         this.sceneName = this.add.systems.config; //Récupère le nom de la scène, pour garder en mémoire pour savoir quelle scène resume quand dialogue ou chara swap
 
@@ -47,6 +47,7 @@ class Play extends Phaser.Scene{
         const playerPoints = this.getPlayerPoints(layers.playerPoints); 
         const endZone = this.createEnd(playerPoints.end); 
         const dialogsPoints = this.createDialogsPoints(layers.dialog_points); 
+        const vide = this.createVoid(); 
  
 
         //Creation joueur
@@ -56,6 +57,7 @@ class Play extends Phaser.Scene{
         //ajout colliders au joueur
         this.player.addCollider(layers.layer_ground); 
         this.player.addOverlap(endZone,this.endLevel); 
+        this.player.addOverlap(vide, this.player.respawn); 
         this.physics.add.overlap(this.player, dialogsPoints, this.startDialog, null, this); 
 
 
@@ -77,9 +79,9 @@ class Play extends Phaser.Scene{
          const myCheckpoints = this.createCheckpoint(layers.checkPointsLayer); 
          this.physics.add.overlap(this.player, myCheckpoints, this.onCheckpointCollision);
 
-         const movingPlatforms = this.createMovingPlatforms(layers.layer_platforms); 
-         this.physics.add.collider(this.player, movingPlatforms);
-         this.physics.add.overlap(this.player.auraBox, movingPlatforms, this.onAuraOverlap);
+         this.movingPlatforms = this.createMovingPlatforms(layers.layer_platforms); 
+         this.physics.add.collider(this.player, this.movingPlatforms);
+         this.physics.add.overlap(this.player.auraBox, this.movingPlatforms, this.onAuraOverlap);
 
          this.plants = this.createPlants(layers.layer_plants); 
 
@@ -140,7 +142,7 @@ class Play extends Phaser.Scene{
         //FIN ENVIRONNEMENT DE TEST
 
         //Limites monde et caméra
-        this.cameras.main.setBounds(0,0, this.MAP_WIDTH, this.MAP_HEIGHT); 
+        this.cameras.main.setBounds(0,0, this.MAP_WIDTH, this.MAP_HEIGHT - 48); 
         this.cameras.main.setZoom(this.zoom); 
         this.cameras.main.startFollow(this.player); 
         this.cameras.main.followOffset.y =  10; 
@@ -202,9 +204,9 @@ class Play extends Phaser.Scene{
 
     //Creation de la map
     createMap(){
-        const map = this.make.tilemap({key: "map_playground"});
+        const map = this.make.tilemap({key: "level_03"});
         map.addTilesetImage("tileset", "tileset"); //Le premier est le nom du tileset sous Tiled et dans jSon, le deuxième est la clé du png utilisé
-
+        console.log(map)
         return map; 
     }
 
@@ -271,6 +273,14 @@ class Play extends Phaser.Scene{
         }
     }
 
+    createVoid(){
+        const vide = this.physics.add.sprite(0, this.MAP_HEIGHT - 32, 'none') 
+            .setOrigin(0,0)
+            .setAlpha(0)
+            .setSize(this.MAP_WIDTH * 2, 50); 
+        return vide; 
+    }
+
     createEnd(end){
         const endLevel = this.physics.add.sprite(end.x, end.y, 'none')
             .setOrigin(0,0)
@@ -289,7 +299,7 @@ class Play extends Phaser.Scene{
         layer.objects.forEach(dialogPoint => {
             const dialog = this.physics.add.sprite(dialogPoint.x, dialogPoint.y, 'none')
             dialog.setAlpha(0)
-            dialog.setSize(5, 100); 
+            dialog.setSize(50, 300); 
 
             dialog.nb = dialogPoint.properties[0].value;  //Attribution d'un numéro de dialogue à un triggerbox, par Tiled     
             
@@ -413,6 +423,7 @@ class Play extends Phaser.Scene{
 
    
     endLevel(player, endPoint){
+        
         player.scene.scene.start(endPoint.nextZone, {
             heroes_available: player.listeHeros,
             current_hero : player.currentHeroIndex ,
@@ -462,4 +473,4 @@ class Play extends Phaser.Scene{
 
 }
 
-export default Play;
+export default Level03;

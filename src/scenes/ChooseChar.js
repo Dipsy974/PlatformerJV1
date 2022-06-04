@@ -20,7 +20,7 @@ class ChooseChar extends Phaser.Scene{
         this.SCREEN_WIDTH = this.config.width;
         this.SCREEN_HEIGHT = this.config.height;
 
-        this.physics.add.sprite(0,0 ,"choose_screen").setOrigin(0); 
+        this.physics.add.sprite(0,0 ,"choose_screen").setOrigin(0).setScale(1.1).setBlendMode(Phaser.BlendModes.MULTIPLY); 
 
         this.choices = this.physics.add.group({ allowGravity: false});
 
@@ -29,13 +29,17 @@ class ChooseChar extends Phaser.Scene{
         this.nextChoice = null; 
         this.choiceRotation =  []; 
 
-        this.choiceSun = this.choices.create(180 , this.SCREEN_HEIGHT/2 - 50, "choose_sun"); 
+        this.choiceSun = this.choices.create(180 , this.SCREEN_HEIGHT/2 - 50, "sun_spritesheet"); 
+        this.choiceSun.anims.play("idle_sun"); 
 
         if(this.listHeroesAvailabe.length == 2){
-            this.choiceRain = this.choices.create(350 , this.SCREEN_HEIGHT/2 - 50, "choose_rain");
+            this.choiceRain = this.choices.create(350 , this.SCREEN_HEIGHT/2 - 50, "rain_spritesheet");
+            this.choiceRain.anims.play("idle_rain");
         }else if(this.listHeroesAvailabe.length == 3){
-            this.choiceRain = this.choices.create(350 , this.SCREEN_HEIGHT/2 - 50, "choose_rain");
-            this.choiceWind = this.choices.create(500 , this.SCREEN_HEIGHT/2 - 50, "choose_wind"); 
+            this.choiceRain = this.choices.create(350 , this.SCREEN_HEIGHT/2 - 50, "rain_spritesheet");
+            this.choiceWind = this.choices.create(500 , this.SCREEN_HEIGHT/2 - 50, "wind_spritesheet"); 
+            this.choiceRain.anims.play("idle_rain");
+            this.choiceWind.anims.play("idle_wind");
         }
          
         // x = x0 + r*cos(t)
@@ -93,10 +97,10 @@ class ChooseChar extends Phaser.Scene{
 
            if(choice.active){
                 choice.setAlpha(1);
-                choice.setScale(2); 
+                choice.setScale(4); 
            }else{
                 choice.setAlpha(0.5);
-                choice.setScale(1);                
+                choice.setScale(2);                
            }
              
          }, this);

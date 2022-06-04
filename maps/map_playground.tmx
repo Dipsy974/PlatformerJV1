@@ -24,7 +24,7 @@
    <image width="480" height="320" source="../assets/bg_test_3.png"/>
   </tile>
  </tileset>
- <objectgroup id="14" name="bg">
+ <objectgroup id="14" name="bg" visible="0">
   <object id="68" gid="601" x="-0.333333" y="621" width="530.667" height="357.333"/>
   <object id="69" gid="602" x="-1" y="620" width="480" height="320"/>
   <object id="70" gid="603" x="1" y="592" width="480" height="320"/>
@@ -250,7 +250,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="player_points">
-  <object id="15" name="Spawn" x="613.03" y="202.667">
+  <object id="15" name="Spawn" x="507.03" y="153.667">
    <point/>
   </object>
   <object id="2" name="End" x="926" y="200.667">
@@ -306,6 +306,8 @@
   <object id="58" name="Spawn" type="Caster" x="768.333" y="198.667">
    <properties>
     <property name="faceLeft" type="bool" value="true"/>
+    <property name="tornadoCooldown" type="int" value="200"/>
+    <property name="tornadoLifeSpan" type="int" value="3000"/>
    </properties>
    <point/>
   </object>

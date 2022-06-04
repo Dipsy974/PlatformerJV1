@@ -9,6 +9,8 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
 
         this.minX = minX;
         this.maxX = maxX;
+        this.initX = x;
+        this.initY = y; 
         this.dir = dir; 
         this.init(); 
         this.initEvents(); 
@@ -92,6 +94,11 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
 
     setInactive(){
         this.active = false; 
+    }
+
+    reset(){
+        this.x = this.initX;
+        this.y = this.initY; 
     }
 
 

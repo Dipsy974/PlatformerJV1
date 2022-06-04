@@ -5,6 +5,12 @@ import DialogueSystem from '/src/scenes/DialogueSystem.js';
 import ChooseChar from '/src/scenes/ChooseChar.js';
 import UIScene from '/src/scenes/UIScene.js';
 import Scene02 from '/src/scenes/Scene_02.js';
+import Level01 from '/src/scenes/Level_01.js';
+import Level02 from '/src/scenes/Level_02.js';
+import Level03 from '/src/scenes/Level_03.js';
+import Level04 from '/src/scenes/Level_04.js';
+import Level05 from '/src/scenes/Level_05.js';
+import Level06 from '/src/scenes/Level_06.js';
 
 
 const WIDTH = 1280;
@@ -21,7 +27,7 @@ const SHARED_CONFIG = {
   }
 }
 
-const Scenes = [PreloadScene, PlayScene, UIScene, TestScene, DialogueSystem, ChooseChar, Scene02];
+const Scenes = [PreloadScene, PlayScene, UIScene, TestScene, DialogueSystem, ChooseChar, Scene02, Level01, Level02, Level03, Level04, Level05, Level06];
 const createScene = Scene => new Scene(SHARED_CONFIG) //A voir
 const initScenes = () => Scenes.map(createScene) 
 

@@ -9,14 +9,14 @@
          "objects":[
                 {
                  "gid":601,
-                 "height":357.333333333333,
+                 "height":357.333,
                  "id":68,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":530.666666666667,
-                 "x":-0.333333333333314,
+                 "width":530.667,
+                 "x":-0.333333,
                  "y":621
                 }, 
                 {
@@ -45,7 +45,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -123,8 +123,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":613.03,
-                 "y":202.667
+                 "x":507.03,
+                 "y":153.667
                 }, 
                 {
                  "height":0,
@@ -316,6 +316,16 @@
                          "name":"faceLeft",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"tornadoCooldown",
+                         "type":"int",
+                         "value":200
+                        }, 
+                        {
+                         "name":"tornadoLifeSpan",
+                         "type":"int",
+                         "value":3000
                         }],
                  "rotation":0,
                  "type":"Caster",

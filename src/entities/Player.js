@@ -28,9 +28,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     init(){
         //Variables personnage
         this.gravity = 400; 
-        this.speed = 120; 
+        this.speed = 100; 
         this.jumpSpeed = 200; 
-        this.additionalJumps = 1;
         this.jumpCount = 0; 
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.isFalling = false; 
@@ -385,14 +384,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         
         //Saut et chute 
-        if(isUpJustDown && (isOnFloor || this.jumpCount <= this.additionalJumps) && !this.auraBox.active){
+        if(isUpJustDown && (isOnFloor) && !this.auraBox.active){
             if(this.currentHero == "Rain"){
-                this.setVelocityY(-this.jumpSpeed * 1.3);    
+                this.setVelocityY(-this.jumpSpeed * 1.2);    
             }else{
-                this.setVelocityY(-this.jumpSpeed);
+                this.setVelocityY(-this.jumpSpeed * 0.9);
             }
-            
-            this.jumpCount++; 
             this.isFalling = false; 
 
             this.play(this.animsPlayer[this.currentHeroIndex].jump);  
@@ -600,6 +597,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     respawn(){
         this.body.reset(this.lastSaveX, this.lastSaveY); 
+        this.scene.movingPlatforms.children.each(function(platform) {
+
+            platform.reset(); 
+   
+               }, this);
     }
 
     bounceHit(){

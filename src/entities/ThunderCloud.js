@@ -26,7 +26,7 @@ class TCloud extends Enemy{
         this.detectionBox = this.scene.physics.add.sprite(this.x, this.y, 'none')
             .setOrigin(0,0)
             .setAlpha(0)
-            .setSize(this.width * 2, this.height * 4)
+            .setSize(this.width * 2, this.height * 2.3)
             .setOffset(-this.width, -10); 
 
         Object.assign(this.detectionBox, collidable); 

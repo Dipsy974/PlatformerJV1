@@ -4,10 +4,12 @@ import Enemy from "./Enemy.js";
 //Classe Caster : comportement Ennemi 
 class Caster extends Enemy{
 
-    constructor(scene, x, y, facing){
+    constructor(scene, x, y, facing, cooldown, lifeTime){
         super(scene, x,y, "enemy_harpy"); 
 
         this.facingLeft = facing; 
+        this.tornadoLifespan  = lifeTime;
+        this.castCooldown = cooldown;  
 
         this.init(); 
     }
@@ -20,7 +22,6 @@ class Caster extends Enemy{
         this.setVelocityX(this.speed); 
         this.setFlipX(this.facingLeft); 
 
-        this.castCooldown = 200; 
         this.lastCast = this.castCooldown; 
 
         if(this.facingLeft){
@@ -29,7 +30,6 @@ class Caster extends Enemy{
             this.tornadoVelocity = 100;
         }
 
-        this.tornadoLifespan = 3000; 
 
         //Physique avec le monde
         this.setSize(21,40);
