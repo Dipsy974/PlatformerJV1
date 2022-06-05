@@ -118,28 +118,6 @@ class Level05 extends Phaser.Scene{
         });
         this.windEmitter.scene = this; 
 
-        
-      
-        //  this.light = this.lights.addLight(this.player.x, this.player.y, 70).setIntensity(3); 
-        //  this.lights.enable().setAmbientColor(0x555555);
-         
-
-        //ENVIRONNEMENT DE TEST
-        //let { width, height } = this.sys.game.canvas;
-    
-        // for(var i = 0; i < this.MAP_WIDTH; i = i + 16){
-        //     this.add.line(0, 0, i, 0, i, this.MAP_HEIGHT, 0x00ff00, 0.1).setOrigin(0); 
-        // }
-        // for(var y = 0; y < this.MAP_HEIGHT; y = y + 16){
-        //     this.add.line(0, 0, 0, y, this.MAP_WIDTH, y, 0x00ff00, 0.1).setOrigin(0); 
-        // }
-
-        this.playerHV = this.add.text(470, 270,  ";" ).setScrollFactor(0); 
-        this.currentPlayer = this.add.text(520, 270,  ";" ).setScrollFactor(0); 
-
-
-
-        //FIN ENVIRONNEMENT DE TEST
 
         //Limites monde et caméra
         this.cameras.main.setBounds(0,0, this.MAP_WIDTH, this.MAP_HEIGHT - 48); 
@@ -176,7 +154,7 @@ class Level05 extends Phaser.Scene{
     }
 
     onPlayerCollision(enemy, player){
-        player.getHit(enemy.damages); 
+        player.respawn(); 
     }
 
     onProjectileCollision(enemy, projectile){
@@ -205,7 +183,7 @@ class Level05 extends Phaser.Scene{
     //Creation de la map
     createMap(){
         const map = this.make.tilemap({key: "level_05"});
-        map.addTilesetImage("tileset", "tileset"); //Le premier est le nom du tileset sous Tiled et dans jSon, le deuxième est la clé du png utilisé
+        map.addTilesetImage("tileset", "tileset" , 16, 16, 1, 2); //Le premier est le nom du tileset sous Tiled et dans jSon, le deuxième est la clé du png utilisé
         console.log(map)
         return map; 
     }
@@ -396,7 +374,7 @@ class Level05 extends Phaser.Scene{
 
     checkPlayerBurned(particle){
         if((particle.x > this.player.x- this.player.width/2 && particle.x < this.player.x + this.player.width/2) && (particle.y > this.player.y && particle.y < this.player.y + this.player.height/2) ){
-            this.player.getHit(10); 
+            this.player.respawn(); 
         }
     }
 
@@ -448,12 +426,7 @@ class Level05 extends Phaser.Scene{
 
    
     update(){
-        //ENVIRONNEMENT DE TEST
-        //Position joueur en tiles
-       let playerH = Math.round(this.player.x/16);
-       let playerV = Math.round(this.player.y/16);
-       this.playerHV.setText(playerH + ";" + playerV);
-       this.currentPlayer.setText(this.player.currentHero);
+
 
        //Update wind particles emitter position
        if(this.windDirection == "right"){ 
@@ -464,11 +437,6 @@ class Level05 extends Phaser.Scene{
             this.windEmitter.setSpeedX({ min: -this.maxWindVelocity*2 + 40 , max: -this.maxWindVelocity*2 - 40 });
        }
 
-      
-    //    this.light.x = this.player.x;
-    //    this.light.y = this.player.y;
-
-        //FIN ENVIRONNEMENT DE TEST
     }
 
 }

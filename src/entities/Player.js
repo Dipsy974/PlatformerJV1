@@ -65,7 +65,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             .setSize(this.width * 12, this.height * 3)
             .setOffset(-this.width * 6, -this.height*2); 
 
-        this.hpBar = new HealthBar(this.scene, this.scene.config.leftTopCorner.x + 5, this.scene.config.leftTopCorner.y + 5, this.hp); 
+       
 
         //Personnage actif
 
@@ -267,6 +267,24 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             
         });
 
+
+        this.explodeParticles = this.scene.add.particles('player_particles');
+        this.explodeEmitter = this.explodeParticles.createEmitter({
+            
+            x: this.x,
+            y: this.y,
+            speed: { min: -60, max: 60 },
+            angle: { min: 0, max: 360 }, 
+            rotate : {min: 0, max: 90},
+            lifespan: 300,
+            scale: { start: 1, end: 0 },
+            scale: { start: 1, end: 0 },
+            quantity : 50, 
+            frequency: 10, 
+            on:  false, 
+              
+        });
+
         
 
     }
@@ -305,7 +323,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
    
         }, this);
 
-        
+        this.lightParticleEmmiter.setPosition(this.x, this.y);
+        this.explodeEmitter.setPosition(this.x, this.y);
 
 
         if(this.cantMove){
@@ -333,7 +352,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.auraBox.y = this.y; 
         this.windBox.x = this.x;
         this.windBox.y = this.y; 
-        this.lightParticleEmmiter.setPosition(this.x, this.y);
+       
         
 
         //Déplacements
@@ -390,6 +409,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             }else{
                 this.setVelocityY(-this.jumpSpeed * 0.9);
             }
+            
             this.isFalling = false; 
 
             this.play(this.animsPlayer[this.currentHeroIndex].jump);  
@@ -596,12 +616,25 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
 
     respawn(){
-        this.body.reset(this.lastSaveX, this.lastSaveY); 
-        this.scene.movingPlatforms.children.each(function(platform) {
+        this.explodeEmitter.explode(); 
+        this.disableBody();
+        this.setAlpha(0);
+        this.scene.time.delayedCall(70, () => {
+            this.setAlpha(0);
+        }, this);
+        this.scene.time.delayedCall(500, () => {
+            this.setAlpha(1);
+            this.enableBody();
+            this.setAlpha(1); 
+            this.body.reset(this.lastSaveX, this.lastSaveY); 
+            this.scene.movingPlatforms.children.each(function(platform) {
 
             platform.reset(); 
    
-               }, this);
+               }, this); 
+        }, this);
+
+        
     }
 
     bounceHit(){
@@ -623,7 +656,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             const tweenBounceAnim = this.playDamageTween(); 
 
             this.hp -= damages;
-            this.hpBar.decrease(this.hp); 
             
             this.scene.time.delayedCall(500, () => {
                 this.cantMove = false;  

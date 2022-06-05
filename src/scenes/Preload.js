@@ -14,7 +14,7 @@ class Preload extends Phaser.Scene{
         this.load.tilemapTiledJSON("level_04", "/maps/level_04.json");
         this.load.tilemapTiledJSON("level_05", "/maps/level_05.json");
         this.load.tilemapTiledJSON("level_06", "/maps/level_06.json");
-        this.load.image("tileset", "/assets/tileset.png");
+        this.load.image("tileset", "/assets/tileset-extruded.png");
         //this.load.image("hero", "/assets/hero.png"); 
 
         //PRELOAD JOUEUR
@@ -54,6 +54,7 @@ class Preload extends Phaser.Scene{
         this.load.image("choose_rain", "/assets/choose_rain.png");
         this.load.image("choose_wind", "/assets/choose_wind.png");
         this.load.image("choose_screen", "/assets/chooseScreen.png");
+        this.load.image("end_screen", "/assets/ecran_fin.png");
         this.load.image("hpUI", "/assets/ui_life.png");
         this.load.image("bg", "/assets/bg_tempo.png"); 
         this.load.image("bg_test", "/assets/bg_test.png"); 
@@ -74,6 +75,7 @@ class Preload extends Phaser.Scene{
         this.load.image("light_particles", "/assets/light_particles.png");
         this.load.image("sheep_particles", "/assets/sheep_particles.png");
         this.load.image("harpy_particles", "/assets/harpy_particles.png");
+        this.load.image("player_particles", "/assets/player_particles.png");
 
         //PRELOAD ENNEMIS
         this.load.spritesheet("enemy_run", "/assets/enemy/enemy01_run.png",
@@ -120,7 +122,7 @@ class Preload extends Phaser.Scene{
             current_hero : 0,
             hero_hp : 150
         });
-        this.scene.launch("UIScene"); 
+        // this.scene.launch("UIScene"); 
 
     }
 

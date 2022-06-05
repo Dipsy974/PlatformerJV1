@@ -123,8 +123,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":146.211818181818,
-                 "y":264.060939393939
+                 "x":73.5453333333333,
+                 "y":260.061
                 }, 
                 {
                  "height":0,
@@ -172,6 +172,24 @@
                  "width":0,
                  "x":73.6667,
                  "y":279.667
+                }, 
+                {
+                 "height":0,
+                 "id":79,
+                 "name":"Dialog",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Number",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1771.33333333333,
+                 "y":232.666666666667
                 }],
          "opacity":1,
          "properties":[
@@ -380,7 +398,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":79,
+ "nextobjectid":80,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

@@ -22,10 +22,10 @@ class DialogueSystem extends Phaser.Scene{
         this.SCREEN_WIDTH = this.config.width;
         this.SCREEN_HEIGHT = this.config.height;
 
-        this.dialogBox = this.physics.add.sprite(180 , this.SCREEN_HEIGHT/2 - 50, "dialogUI").setOrigin(0).setScrollFactor(0); 
-        this.dialogueText = this.add.text(400, this.SCREEN_HEIGHT/2 +50, 'Dialogue ici', { fontSize: '20px', color:"white"});
-        this.dialogueName = this.add.text(400, this.SCREEN_HEIGHT/2 , 'Dialogue ici', { fontSize: '40px', color:"white"});
-        this.dialogueAvatar = this.physics.add.sprite(300 , this.SCREEN_HEIGHT/2 +50, "dialog_sun").setOrigin(0);
+        this.dialogBox = this.physics.add.sprite(this.SCREEN_WIDTH/2 , this.SCREEN_HEIGHT/2 + 200, "dialogUI").setScrollFactor(0); 
+        this.dialogueText = this.add.text(this.SCREEN_WIDTH/2 - 180, this.SCREEN_HEIGHT/2 + 120, 'Dialogue ici', { fontSize: '20px', color:"black"});
+        this.dialogueName = this.add.text(this.SCREEN_WIDTH/2 - 370, this.SCREEN_HEIGHT/2 + 120 , 'Dialogue ici', { fontSize: '40px', color:"black",  fontStyle:"bold"});
+        this.dialogueAvatar = this.physics.add.sprite(this.SCREEN_WIDTH/2 - 420 , this.SCREEN_HEIGHT/2 + 120, "dialog_sun").setOrigin(0).setScale(3);
 
         
 

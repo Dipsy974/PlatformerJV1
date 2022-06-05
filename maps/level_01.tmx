@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="79">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="80">
  <editorsettings>
   <export target="level_01.json" format="json"/>
  </editorsettings>
@@ -165,7 +165,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="player_points">
-  <object id="15" name="Spawn" x="146.212" y="264.061">
+  <object id="15" name="Spawn" x="73.5453" y="260.061">
    <point/>
   </object>
   <object id="2" name="End" x="1884.67" y="268.667">
@@ -182,6 +182,12 @@
   <object id="61" name="Dialog" x="73.6667" y="279.667">
    <properties>
     <property name="Number" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="79" name="Dialog" x="1771.33" y="232.667">
+   <properties>
+    <property name="Number" type="int" value="1"/>
    </properties>
    <point/>
   </object>
