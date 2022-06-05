@@ -405,7 +405,7 @@ class Level01 extends Phaser.Scene{
     }
 
    
-    endLevel(player, endPoint){
+    endLevel(player, endPoint){ 
         player.scene.scene.start(endPoint.nextZone, {
             heroes_available: player.listeHeros,
             current_hero : player.currentHeroIndex ,

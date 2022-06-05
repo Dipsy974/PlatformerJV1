@@ -296,6 +296,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     update(time, delta){
 
+        if(!this.active){return; }
+        
           //Dash effect
           if(this.isDashing){
             const silhouette = this.dashTrail.create(this.x, this.y,'wind_dash').setPushable(false).setDepth(-1).setAlpha(0.8).setTintFill( 0x62bf76).setFlipX(this.flipX);
@@ -314,14 +316,17 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             // .setTintFill(0x62bf76)
         }
    
-        this.dashTrail.children.each(function(silouhette) {
+    
+            this.dashTrail.children.each(function(silouhette) {
             
-            silouhette.alpha -= 0.05 ;
-            if(silouhette.alpha <= 0){
-                silouhette.destroy(); 
-            }
-   
-        }, this);
+                silouhette.alpha -= 0.05 ;
+                if(silouhette.alpha <= 0){
+                    silouhette.destroy(); 
+                }
+       
+            }, this);
+    
+        
 
         this.lightParticleEmmiter.setPosition(this.x, this.y);
         this.explodeEmitter.setPosition(this.x, this.y);
