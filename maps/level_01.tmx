@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="80">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="90">
  <editorsettings>
   <export target="level_01.json" format="json"/>
  </editorsettings>
@@ -171,6 +171,64 @@
   <object id="2" name="End" x="1884.67" y="268.667">
    <properties>
     <property name="NextScene" value="Level02"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="15" name="birds_points">
+  <object id="80" x="176" y="255.333">
+   <properties>
+    <property name="name" value="bird_purple"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="82" x="201.333" y="255.333">
+   <properties>
+    <property name="name" value="bird_red"/>
+    <property name="xfaceLeft" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="83" x="303.333" y="223.333">
+   <properties>
+    <property name="name" value="bird_red"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="84" x="324" y="224">
+   <properties>
+    <property name="name" value="bird_purple"/>
+    <property name="xfaceLeft" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="85" x="338.667" y="224">
+   <properties>
+    <property name="name" value="bird_orange"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="86" x="640.545" y="239.879">
+   <properties>
+    <property name="name" value="bird_red"/>
+    <property name="xfaceLeft" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="87" x="1516.36" y="239.091">
+   <properties>
+    <property name="name" value="bird_purple"/>
+    <property name="xfaceLeft" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="88" x="1500.91" y="239.273">
+   <properties>
+    <property name="name" value="bird_orange"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
    </properties>
    <point/>
   </object>

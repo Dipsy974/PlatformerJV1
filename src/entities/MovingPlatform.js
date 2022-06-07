@@ -21,7 +21,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
         this.gravity = 0; 
         this.setImmovable(true); 
         this.speed = 60;
-        this.active = false; 
+        this.platActive = false; 
         this.body.allowGravity = false; 
         this.moving = false; 
 
@@ -53,8 +53,9 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
     }
 
     update(time, delta){
+        if(!this.active){return; }
         
-        if(this.active){
+        if(this.platActive){
 
             if(!this.moving){
                 this.anims.play("activating_platform", true);
@@ -89,11 +90,11 @@ class MovingPlatform extends Phaser.Physics.Arcade.Sprite{
     }
 
     setActive(){
-        this.active = true; 
+        this.platActive = true; 
     }
 
     setInactive(){
-        this.active = false; 
+        this.platActive = false; 
     }
 
     reset(){

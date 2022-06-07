@@ -123,7 +123,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":73.5453333333333,
+                 "x":73.5453,
                  "y":260.061
                 }, 
                 {
@@ -143,6 +143,201 @@
                  "width":0,
                  "x":1884.67,
                  "y":268.667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":15,
+         "name":"birds_points",
+         "objects":[
+                {
+                 "height":0,
+                 "id":80,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":255.333
+                }, 
+                {
+                 "height":0,
+                 "id":82,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_red"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":201.333333333333,
+                 "y":255.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":83,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_red"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":303.333333333333,
+                 "y":223.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":84,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":324,
+                 "y":224
+                }, 
+                {
+                 "height":0,
+                 "id":85,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_orange"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":338.666666666667,
+                 "y":224
+                }, 
+                {
+                 "height":0,
+                 "id":86,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_red"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":640.545454545454,
+                 "y":239.878787878788
+                }, 
+                {
+                 "height":0,
+                 "id":87,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1516.36363636364,
+                 "y":239.090909090909
+                }, 
+                {
+                 "height":0,
+                 "id":88,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_orange"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1500.90909090909,
+                 "y":239.272727272727
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -188,8 +383,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1771.33333333333,
-                 "y":232.666666666667
+                 "x":1771.33,
+                 "y":232.667
                 }],
          "opacity":1,
          "properties":[
@@ -397,8 +592,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":15,
- "nextobjectid":80,
+ "nextlayerid":16,
+ "nextobjectid":90,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

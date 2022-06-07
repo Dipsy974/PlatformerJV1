@@ -152,6 +152,132 @@
         }, 
         {
          "draworder":"topdown",
+         "id":15,
+         "name":"birds_points",
+         "objects":[
+                {
+                 "height":0,
+                 "id":121,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":830.083333333333,
+                 "y":47.3333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":122,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_orange"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":852.75,
+                 "y":47.6666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":123,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":867.416666666667,
+                 "y":48
+                }, 
+                {
+                 "height":0,
+                 "id":124,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_orange"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":991.69696969697,
+                 "y":495.878787878788
+                }, 
+                {
+                 "height":0,
+                 "id":125,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":216.682,
+                 "y":575.386
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":9,
          "name":"dialogs_points",
          "objects":[
@@ -612,8 +738,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":15,
- "nextobjectid":121,
+ "nextlayerid":16,
+ "nextobjectid":128,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

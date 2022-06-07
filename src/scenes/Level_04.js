@@ -7,6 +7,7 @@ import Caster from "../entities/CasterEnemy.js";
 import ProtectedEnemy from "../entities/ProtectedEnemy.js";
 import MovingPlatform from "../entities/MovingPlatform.js";
 import Plant from "../entities/Plant.js";
+import Bird from "../entities/Birds.js";
 import FirePlace from "../entities/FirePlace.js";
 import WindParticle from "../entities/WindParticles.js";
 
@@ -84,6 +85,7 @@ class Level04 extends Phaser.Scene{
          this.physics.add.overlap(this.player.auraBox, this.movingPlatforms, this.onAuraOverlap);
 
          this.plants = this.createPlants(layers.layer_plants); 
+         this.birds = this.createBirds(layers.birds_points); 
 
          this.firePlaces = this.createFirePlaces(layers.layer_fires); 
          
@@ -236,9 +238,11 @@ class Level04 extends Phaser.Scene{
 
         const dialog_points = map.getObjectLayer("dialogs_points"); 
 
+        const birds_points = map.getObjectLayer("birds_points"); 
+
         layer_ground.setCollisionByExclusion(-1, true); 
 
-        return {layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
+        return {birds_points, layer_decor_bg_loin , layer_decor_fg, layer_decor_bg, layer_decor, layer_ground, playerPoints, enemiesSpawns, checkPointsLayer, layer_platforms, layer_plants, layer_fires, dialog_points}; 
     }
 
     createPlayer(playerPoints){
@@ -344,6 +348,19 @@ class Level04 extends Phaser.Scene{
         }); 
 
         return plants; 
+    }
+
+    createBirds(layer){
+        const birds = new Phaser.GameObjects.Group; 
+        
+        layer.objects.forEach(brd => {
+            let bird = new Bird(this, brd.x, brd.y, brd.properties[0].value, brd.properties[1].value); 
+            this.physics.add.overlap(this.player, bird.detectionBox , () => {bird.fly()},null, this);
+            birds.add(bird);   
+               
+        }, this); 
+
+        return birds; 
     }
 
     createFirePlaces(layer){

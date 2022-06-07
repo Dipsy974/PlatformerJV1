@@ -51,7 +51,7 @@ class Cloud extends Phaser.Physics.Arcade.Sprite{
     }
 
     update(time, delta){
-        if(!this.body){ return; }
+        if(!this.body || !this.active){ return; }
         
         this.body.setVelocityX(this.scene.windVelocity); 
 

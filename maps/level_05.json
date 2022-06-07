@@ -152,6 +152,132 @@
         }, 
         {
          "draworder":"topdown",
+         "id":15,
+         "name":"birds_points",
+         "objects":[
+                {
+                 "height":0,
+                 "id":147,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":597.75,
+                 "y":63.7916666666667
+                }, 
+                {
+                 "height":0,
+                 "id":148,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":648.75,
+                 "y":63.875
+                }, 
+                {
+                 "height":0,
+                 "id":149,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_red"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":610.625,
+                 "y":63.875
+                }, 
+                {
+                 "height":0,
+                 "id":150,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_orange"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1528.66666666667,
+                 "y":291
+                }, 
+                {
+                 "height":0,
+                 "id":151,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"bird_purple"
+                        }, 
+                        {
+                         "name":"xfaceLeft",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1582,
+                 "y":247
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":9,
          "name":"dialogs_points",
          "objects":[
@@ -251,7 +377,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":833.500333333333,
+                 "x":833.5,
                  "y":93.5
                 }, 
                 {
@@ -263,7 +389,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":861.833333333333,
+                 "x":861.833,
                  "y":93.3333
                 }, 
                 {
@@ -275,7 +401,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":890.833333333333,
+                 "x":890.833,
                  "y":92.6667
                 }, 
                 {
@@ -287,7 +413,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":918.250333333333,
+                 "x":918.25,
                  "y":93
                 }, 
                 {
@@ -299,7 +425,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":946.083333333333,
+                 "x":946.083,
                  "y":92.6667
                 }, 
                 {
@@ -311,7 +437,7 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":972.500333333333,
+                 "x":972.5,
                  "y":92.6667
                 }, 
                 {
@@ -323,8 +449,8 @@
                  "type":"StaticCloud",
                  "visible":true,
                  "width":0,
-                 "x":996.583666666667,
-                 "y":92.7500333333333
+                 "x":996.584,
+                 "y":92.75
                 }, 
                 {
                  "height":0,
@@ -451,8 +577,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":15,
- "nextobjectid":147,
+ "nextlayerid":16,
+ "nextobjectid":152,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="31" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="133">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="100" height="31" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="138">
  <editorsettings>
   <export target="level_04.json" format="json"/>
  </editorsettings>
@@ -211,6 +211,36 @@
   <object id="96" name="End" x="1552" y="204">
    <properties>
     <property name="NextScene" value="Level05"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="15" name="birds_points">
+  <object id="134" x="334.969" y="383.303">
+   <properties>
+    <property name="name" value="bird_orange"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="135" x="349.636" y="383.636">
+   <properties>
+    <property name="name" value="bird_purple"/>
+    <property name="xfaceLeft" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="136" x="956.023" y="120.955">
+   <properties>
+    <property name="name" value="bird_red"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="137" x="1532.05" y="111.227">
+   <properties>
+    <property name="name" value="bird_red"/>
+    <property name="xfaceLeft" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
