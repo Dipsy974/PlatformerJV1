@@ -51,6 +51,14 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
 
 
+        this.jumpSound = this.scene.sound.add("jump", {volume : 0.08});
+        this.beamSound = this.scene.sound.add("beam", {volume : 0.08});
+        this.cloudSound = this.scene.sound.add("cloud", {volume : 0.05});
+        this.dashSound = this.scene.sound.add("dash", {volume : 0.08});
+        this.windCastSound = this.scene.sound.add("wind_cast", {volume : 0.08});
+        this.auraSOund = this.scene.sound.add("aura", {volume : 0.2});
+
+
         this.auraBox = this.scene.physics.add.sprite(this.x, this.y, 'none')
             .setOrigin(0,0)
             .setAlpha(0)
@@ -410,6 +418,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         
         //Saut et chute 
         if(isUpJustDown && (isOnFloor) && !this.auraBox.active){
+            this.jumpSound.play(); 
             if(this.currentHero == "Rain"){
                 this.setVelocityY(-this.jumpSpeed * 1.2);    
             }else{
@@ -447,6 +456,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
          //Dash
          if(isSpaceJustDown && this.currentHero == "Wind"){
+             this.dashSound.play(); 
             this.hoveringAvailable = false; 
             this.isDashing = true;
             this.anims.play(this.animsPlayer[this.currentHeroIndex].dash); 
@@ -464,6 +474,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //Projectile
         if(isSpaceJustDown && this.currentHero == "Sun"){
             if(getTimestamp() - this.timeFromLastShot < this.fireCooldown){ return; }
+            this.beamSound.play(); 
             this.anims.play(this.animsPlayer[this.currentHeroIndex].cast); 
             const beam = new Projectile(this.scene, this.x, this.y + 5); 
             this.projectiles.add(beam); 
@@ -501,6 +512,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //Spawn nuage
         if(this.currentHero == "Rain"){
             if(isRJustDown){
+                this.cloudSound.play(); 
                 if(isOnFloor){
                     this.anims.play(this.animsPlayer[this.currentHeroIndex].cast); 
                     this.scene.time.delayedCall(550, () => {
@@ -519,6 +531,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //Toggle Wind
         if(this.currentHero == "Wind"){
             if(isRJustDown){
+                this.windCastSound.play(); 
                 this.toggleWind(this.dir);  
                 this.anims.play(this.animsPlayer[this.currentHeroIndex].cast);  
             }

@@ -39,7 +39,8 @@ class Level01 extends Phaser.Scene{
         this.physics.add.sprite(0,0, "bg").setOrigin(0).setScrollFactor(0).setDepth(-10); 
    
         
-
+        this.playTheme(); 
+       
 
         //Creation de la scene : map + layers
         const map = this.createMap();  
@@ -121,7 +122,6 @@ class Level01 extends Phaser.Scene{
         });
         this.windEmitter.scene = this; 
 
-        
       
 
         //Limites monde et caméra
@@ -130,8 +130,7 @@ class Level01 extends Phaser.Scene{
         this.cameras.main.startFollow(this.player); 
         this.cameras.main.followOffset.y =  10; 
         this.physics.world.setBounds(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
-
-        
+  
         
     }
 
@@ -187,6 +186,10 @@ class Level01 extends Phaser.Scene{
         player.respawn(); 
     }
 
+    playTheme(){
+        if(this.sound.get("play_theme")){ return ;}
+        this.sound.add("play_theme", {loop : true, volume: 0.2}).play(); 
+    }
 
     //Creation de la map
     createMap(){
@@ -461,6 +464,7 @@ class Level01 extends Phaser.Scene{
             this.windEmitter.startFollow(this.player, this.SCREEN_WIDTH/2/this.zoom, -this.SCREEN_HEIGHT/2/this.zoom);
             this.windEmitter.setSpeedX({ min: -this.maxWindVelocity*2 + 40 , max: -this.maxWindVelocity*2 - 40 });
        }
+
 
     }
 

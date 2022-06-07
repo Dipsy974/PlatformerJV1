@@ -36,6 +36,8 @@ class Preload extends Phaser.Scene{
         {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("wind_spritesheet", "assets/player/wind_spritesheet.png",
         {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("aura_tuto", "assets/player/player_tuto_01.png",
+        {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("beam_sun", "assets/player/beam_sun.png",
         {frameWidth: 16, frameHeight: 8});
         this.load.image("wind_dash", "assets/player/wind_dash.png" )
@@ -122,6 +124,15 @@ class Preload extends Phaser.Scene{
 
         this.load.spritesheet("enemy_cloud_thunder", "assets/enemy/enemy_cloud_thunder.png",
         {frameWidth: 16, frameHeight: 64});
+
+        this.load.audio("play_theme", "assets/sounds/play_theme_music.mp3"); 
+        this.load.audio("beam", "assets/sounds/beam_sound.mp3"); 
+        this.load.audio("jump", "assets/sounds/jump_sound.wav"); 
+        this.load.audio("dash", "assets/sounds/dash_sound.wav"); 
+        this.load.audio("cloud", "assets/sounds/cloud_sound.mp3"); 
+        this.load.audio("aura", "assets/sounds/aura_sound.mp3"); 
+        this.load.audio("wind_loop", "assets/sounds/wind_loop_sound.mp3"); 
+        this.load.audio("wind_cast", "assets/sounds/wind_cast_sound.mp3"); 
 
     }
 
