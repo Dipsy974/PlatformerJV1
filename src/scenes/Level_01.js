@@ -57,7 +57,7 @@ class Level01 extends Phaser.Scene{
        
         //ajout colliders au joueur
         this.player.addCollider(layers.layer_ground); 
-        this.player.addOverlap(endZone,this.endLevel); 
+        this.endOverlap = this.physics.add.overlap(this.player, endZone,this.endLevel, null, this); 
         this.player.addOverlap(vide, this.player.respawn); 
         this.physics.add.overlap(this.player, dialogsPoints, this.startDialog, null, this); 
 
@@ -430,6 +430,8 @@ class Level01 extends Phaser.Scene{
             current_hero : player.currentHeroIndex ,
             hero_hp : player.hp 
         });  
+     
+        this.endOverlap.active = false; 
     }
 
     startDialog(player, dialogPoint){

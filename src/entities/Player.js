@@ -86,6 +86,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.currentHeroIndex = data.chosenHero; 
             this.isFalling = false; // Réinitialise la chute pour changer l'animation 
             this.swapCharacter(); 
+            console.log(this); 
         }, this);
 
         //Groupe pour effet dash
